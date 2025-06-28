@@ -1,0 +1,79 @@
+* {
+    padding: 0;margin: 0;box-sizing: border-box;
+    font-family: 'SpotifyMix';
+}
+
+body {
+    background-color: var(--background-color);
+}
+
+@font-face {
+  font-family: 'SpotifyMix';
+  src: url('assets/fonts/SpotifyMix-Regular.woff2') format('woff2'),
+       url('assets/fonts/SpotifyMix-Regular.woff') format('woff'),
+       url('assets/fonts/SpotifyMix-Regular.ttf') format('truetype');
+  font-weight: normal;
+  font-style: normal;
+}
+
+:root {
+    --background-color : #0F0F0F;
+    --secondary-color : #151515;
+    --primary-color : #18D85E;
+    --curvature : 18px;
+}
+
+/* Button template */
+.Button {
+    display: flex;
+    align-items: center;
+    color: white;
+    justify-content: center;
+    width: 100px;
+    height: 30px;
+    padding: 10px;
+    border-radius: var(--curvature);
+    border: 2px solid white;
+    background-color: var(--secondary-color);
+    font-weight: 400;
+}
+
+.Button:hover {
+    background-color: var(--primary-color);
+    border: none;
+    color: var(--secondary-color);
+}
+
+
+
+nav {
+    height: 80px;
+    margin: 20px;
+    background-color: var(--secondary-color);
+    /* width: 100%; */
+    border-radius: var(--curvature);
+    display: flex;
+    align-items: center;
+    font-family: 'SpotifyMix';
+    gap: 20px;
+    padding-left: 30px;
+    padding-right: 30px;
+}
+
+nav > span {
+    font-size: 30px;
+    font-weight: 800;
+    letter-spacing: 2px;
+    background-color: transparent;
+}
+
+nav > span:nth-child(2) {
+    color: var(--primary-color);
+}
+nav > span:nth-child(3) {
+    color: white;
+}
+
+.Version {
+    margin-left: auto;
+}
