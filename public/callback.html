@@ -1,0 +1,19 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Spotify Callback</title>
+</head>
+<body>
+  <script>
+    const hash = window.location.hash;
+    const token = new URLSearchParams(hash.substring(1)).get("access_token");
+
+    if (token) {
+      localStorage.setItem("spotify_token", token);
+      window.location.href = "index.html"; // go back to main page
+    } else {
+      document.body.innerHTML = "<h1>Token not found. Please try logging in again.</h1>";
+    }
+  </script>
+</body>
+</html>
