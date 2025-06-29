@@ -1,71 +1,40 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title> Vibeify </title>
-    <link rel="stylesheet" href="style.css">
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Spotify Playlist Analyzer</title>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <nav>
-        <img src="assets/logo.svg">
-        <span>Vibei</span>
-        <span>Fy</span>
-        <span> An AI playlist analyzer</span>
-        <button class="Button Version">Version 1.1</button>
-    </nav>
+  <header>
+    <img src="assets/logo.svg">
+    <div class="nav-title">
+        <span style="color: #1db954;">Vibei</span>
+        <span style="color: white;">Fy</span>
+    </div>
+    <div class="button version">Version 1.0</div>
+  </header>
 
-    <main>
-        <div class="History">
-            <span class="History-logo"> History </span>
-            <div class="History-content">
-                <div class="History-temp">
-                    <div></div>
-                    <div>Playlist Name</div>
-                </div>
-                <div class="History-temp">
-                    <div></div>
-                    <div>Playlist Name</div>
-                </div>
-                <div class="History-temp">
-                    <div></div>
-                    <div>Playlist Name</div>
-                </div>
-                <div class="History-temp">
-                    <div></div>
-                    <div>Playlist Name</div>
-                </div>
-                <div class="History-temp">
-                    <div></div>
-                    <div>Playlist Name</div>
-                </div>
-                <div class="History-temp">
-                    <div></div>
-                    <div>Playlist Name</div>
-                </div>
-                <div class="History-temp">
-                    <div></div>
-                    <div>Playlist Name</div>
-                </div>
-                <div class="History-temp">
-                    <div></div>
-                    <div>Playlist Name</div>
-                </div>
-                <div class="History-temp">
-                    <div></div>
-                    <div>Playlist Name</div>
-                </div>
-                <div class="History-temp">
-                    <div></div>
-                    <div>Playlist Name</div>
-                </div>
-            </div>
-        </div>
+  <main>
+    <section class="input-section">
+      <input
+        type="text"
+        class="playlist-input"
+        placeholder="Paste Spotify playlist URL here"
+      />
+      <br />
+      <button class="analyze-button">Analyze</button>
+    </section>
 
-        <div class="Content">
-            <div class="Content-title">Playlist Link</div>
-        </div>
-    </main>
+    <section class="results-section">
+      <p>Analysis results will appear here...</p>
+    </section>
+  </main>
 
+  <footer>
+    © 2025 VibeiFy — Built with ❤️ by Someone-Unknown69
+  </footer>
 </body>
 </html>
