@@ -1,28 +1,12 @@
 {
-  "name": "spotify_playlist_analyzer",
+  "name": "spotify-playlist-analyzer",
   "version": "1.0.0",
-  "description": "The Spotify Playlist Analyzer is a web application that allows users to input a Spotify playlist link and view detailed information about the playlist. The application is designed with a Spotify-themed aesthetic, providing a familiar and engaging user experience.",
-  "main": "server.js",
+  "type": "module",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1",
-    "start": "node server.js"
+    "dev": "vercel dev",
+    "start": "vercel start"
   },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/Someone-Unknown69/Spotify_Playlist_Analyzer.git"
-  },
-  "keywords": [],
-  "author": "",
-  "license": "ISC",
-  "type": "commonjs",
-  "bugs": {
-    "url": "https://github.com/Someone-Unknown69/Spotify_Playlist_Analyzer/issues"
-  },
-  "homepage": "https://github.com/Someone-Unknown69/Spotify_Playlist_Analyzer#readme",
   "dependencies": {
-    "cors": "^2.8.5",
-    "dotenv": "^17.0.0",
-    "express": "^5.1.0",
-    "node-fetch": "^3.3.2"
+    "node-fetch": "^3.4.1"
   }
 }

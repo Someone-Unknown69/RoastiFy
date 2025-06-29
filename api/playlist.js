@@ -1,22 +1,12 @@
-const express = require("express");
-const fetch = (...args) => import('node-fetch').then(({default: fetch}) => fetch(...args));
-const dotenv = require("dotenv");
-const cors = require("cors");
-const fs = require('fs')
-
-
-dotenv.config();
-const app = express();
-app.use(cors());
-app.use(express.static("public"));
-
-const clientId = process.env.CLIENT_ID;
-const clientSecret = process.env.CLIENT_SECRET;
+// api/playlist.js
+import fetch from 'node-fetch';
 
 let cachedToken = null;
 let tokenExpiresAt = 0;
 
-// Fetch access token using Client Credentials
+const clientId = process.env.CLIENT_ID;
+const clientSecret = process.env.CLIENT_SECRET;
+
 async function getAccessToken() {
   if (cachedToken && Date.now() < tokenExpiresAt) return cachedToken;
 
@@ -36,11 +26,11 @@ async function getAccessToken() {
   return cachedToken;
 }
 
-app.get("/playlist/:id", async (req, res) => {
+export default async function handler(req, res) {
   try {
     const token = await getAccessToken();
-    const playlistId = req.params.id;
-    const url = `https://api.spotify.com/v1/playlists/${playlistId}`;
+    const { id } = req.query;
+    const url = `https://api.spotify.com/v1/playlists/${id}`;
 
     const response = await fetch(url, {
       headers: {
@@ -49,28 +39,22 @@ app.get("/playlist/:id", async (req, res) => {
     });
 
     const playlistData = await response.json();
-    res.json(playlistData);
 
     const tracks = playlistData.tracks.items.map(item => {
       const track = item.track;
       return {
         name: track.name,
         artists: track.artists.map(a => a.name).join(", "),
-        album: item.track.album.name,
-        track_id: item.track.id,
+        album: track.album.name,
+        track_id: track.id,
         popularity: track.popularity
       };
     });
-    
-    fs.writeFileSync("tracks.json", JSON.stringify(tracks, null, 2));
-    console.log("tracks.json saved.");
+
+    res.status(200).json({ tracks });
 
   } catch (err) {
-    console.error(err);
-    res.status(500).send("Error fetching playlist");
+    console.error("API error:", err);
+    res.status(500).json({ error: "Something went wrong." });
   }
-});
-
-app.listen(3000, () => {
-  console.log("Server running on http://localhost:3000");
-});
+}

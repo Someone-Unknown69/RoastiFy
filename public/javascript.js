@@ -34,5 +34,4 @@ async function fetchPlaylist() {
   }
 }
 
-// Wire up the Analyze button
 document.getElementById("analyze").addEventListener("click", fetchPlaylist);
