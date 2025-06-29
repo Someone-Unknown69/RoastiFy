@@ -10,7 +10,10 @@
 
     if (token) {
       localStorage.setItem("spotify_token", token);
-      window.location.href = "index.html"; // go back to main page
+      // Clean the URL
+      window.history.replaceState(null, null, window.location.pathname);
+      // Redirect to main page
+      window.location.href = "/";
     } else {
       document.body.innerHTML = "<h1>Token not found. Please try logging in again.</h1>";
     }
