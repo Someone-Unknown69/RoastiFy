@@ -6,9 +6,9 @@ export default async function handler(req, res) {
   const params = new URLSearchParams();
   params.append('grant_type', 'authorization_code');
   params.append('code', code);
-  params.append('redirect_uri', process.env.SPOTIFY_REDIRECT_URI);
+  params.append('redirect_uri', process.env.REDIRECT_URI);
 
-  const authHeader = Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`).toString('base64');
+  const authHeader = Buffer.from(`${process.env.CLIENT_ID}:${process.env.CLIENT_SECRET}`).toString('base64');
 
   const tokenRes = await fetch('https://accounts.spotify.com/api/token', {
     method: 'POST',
