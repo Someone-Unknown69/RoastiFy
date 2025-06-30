@@ -1,35 +1,29 @@
-export default function handler(req, res) {
-  // Your callback logic here
-  res.status(200).send("Callback working!");
+export default async function handler(req, res) {
+  const { code } = req.query;
+
+  if (!code) return res.status(400).json({ error: 'Missing code' });
+
+  const params = new URLSearchParams();
+  params.append('grant_type', 'authorization_code');
+  params.append('code', code);
+  params.append('redirect_uri', process.env.SPOTIFY_REDIRECT_URI);
+
+  const authHeader = Buffer.from(`${process.env.SPOTIFY_CLIENT_ID}:${process.env.SPOTIFY_CLIENT_SECRET}`).toString('base64');
+
+  const tokenRes = await fetch('https://accounts.spotify.com/api/token', {
+    method: 'POST',
+    headers: {
+      'Authorization': `Basic ${authHeader}`,
+      'Content-Type': 'application/x-www-form-urlencoded'
+    },
+    body: params
+  });
+
+  const data = await tokenRes.json();
+
+  if (data.error) {
+    return res.status(400).json({ error: data.error });
+  }
+
+  res.redirect(`/dashboard?access_token=${data.access_token}`);
 }
-
-// window.onload = async () => {
-//   const urlParams = new URLSearchParams(window.location.search);
-//   const code = urlParams.get('code');
-
-//   if (!code) {
-//     console.error('No code found in URL');
-//     return;
-//   }
-
-//   try {
-//     const response = await fetch('/api/callback', {
-//       method: 'POST',
-//       headers: {
-//         'Content-Type': 'application/json'
-//       },
-//       body: JSON.stringify({ code })
-//     });
-
-//     const data = await response.json();
-
-//     if (data.access_token) {
-//       localStorage.setItem('access_token', data.access_token);
-//       window.location.href = '/dashboard'; // or wherever you want
-//     } else {
-//       console.error('Token exchange failed:', data);
-//     }
-//   } catch (error) {
-//     console.error('Error contacting backend:', error);
-//   }
-// };
