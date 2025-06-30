@@ -104,6 +104,7 @@ make it spotify color themed and also increase the amount of spacing and info
 do not include followup text like "Here is the html .... " basically generate only required element
 `;
 
+
   const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
     headers: {
