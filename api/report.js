@@ -25,7 +25,7 @@ export default async function handler(req, res) {
       "messages": [
         {
           "role": "user",
-          "content": "Analyze these tracks: " + JSON.stringify(tracks)
+          "content": "Tell me are you working"
         }
       ]
     })
