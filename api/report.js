@@ -110,7 +110,7 @@ make it spotify color themed and also increase the amount of spacing and info
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      "model": "meta-llama/llama-4-maverick:free",
+      "model": "deepseek/deepseek-chat-v3-0324:free",
       "messages": [
       {
         "role": "user",
