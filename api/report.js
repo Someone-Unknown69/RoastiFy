@@ -1,6 +1,7 @@
 export default async function handler(req, res) {
   const { tracks } = req.body;
   const apiKey = process.env.OPENROUTER_API_KEY;
+  console.log(apiKey)
   if (!apiKey) {
     return res.status(500).json({ error: "No OpenRouter API key set" });
   }
