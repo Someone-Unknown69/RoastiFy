@@ -1,0 +1,13 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dashboard</title>
+</head>
+<body>
+  <h1>Spotify Dashboard</h1>
+  <script>
+    const token = new URLSearchParams(window.location.search).get('token');
+    document.write(`<p>Access Token:</p><code>${token}</code>`);
+  </script>
+</body>
+</html>
