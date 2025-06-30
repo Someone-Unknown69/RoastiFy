@@ -120,6 +120,10 @@ make it spotify color themed and also increase the amount of spacing and info
   })
   });
 
+  if (response.status === 429) {
+  return res.status(429).json({ message: "Rate limit exceeded. Please wait and try again later." });
+  }
+
   const data = await response.json()
   const aiMessage = data?.choices?.[0]?.message?.content || "No response from AI.";
   res.status(response.status).json({ message: aiMessage });
