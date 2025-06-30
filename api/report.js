@@ -86,7 +86,7 @@ all div shall be centered vertically
    - One-liner for the victim's Instagram bio  
 
   ensure that all graphs are totally generated before giving result and don't overwrtite info
-
+make the html webpage responsive so it can run in mobiles too
 Do NOT include markdown or code blocks, just pure HTML.
 make it spotify color themed and also increase the amount of spacing and info
 `;
