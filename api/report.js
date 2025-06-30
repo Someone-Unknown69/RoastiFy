@@ -20,8 +20,8 @@ export default async function handler(req, res) {
     popularity: t.popularity
   }));
 
-    // Sort by popularity and pick top 5
-  const topTracks = [...allTracks].sort((a, b) => b.popularity - a.popularity).slice(0, 5);
+    // Sort by popularity and pick top 10
+  const topTracks = [...allTracks].sort((a, b) => b.popularity - a.popularity).slice(0, 10);
 
   const prompt = `
 You are an expert music analyst and web writer.
