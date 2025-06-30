@@ -1,42 +1,30 @@
-export default async function handler(req, res) {
-  if (req.method !== 'POST') {
-    return res.status(405).json({ error: 'Method not allowed' });
-  }
-
-  const { code } = req.body;
+window.onload = async () => {
+  const urlParams = new URLSearchParams(window.location.search);
+  const code = urlParams.get('code');
 
   if (!code) {
-    return res.status(400).json({ error: 'Missing code' });
+    console.error('No code found in URL');
+    return;
   }
 
-  const params = new URLSearchParams();
-  params.append('grant_type', 'authorization_code');
-  params.append('code', code);
-  params.append('redirect_uri', process.env.REDIRECT_URI);
-  params.append('client_id', process.env.CLIENT_ID);
-  params.append('client_secret', process.env.CLIENT_SECRET);
-
   try {
-    const response = await fetch('https://accounts.spotify.com/api/token', {
+    const response = await fetch('/api/callback', {
       method: 'POST',
       headers: {
-        'Content-Type': 'application/x-www-form-urlencoded'
+        'Content-Type': 'application/json'
       },
-      body: params.toString()
+      body: JSON.stringify({ code })
     });
 
     const data = await response.json();
 
-    if (data.error) {
-      return res.status(400).json({ error: data.error });
+    if (data.access_token) {
+      localStorage.setItem('access_token', data.access_token);
+      window.location.href = '/dashboard'; // or wherever you want
+    } else {
+      console.error('Token exchange failed:', data);
     }
-
-    res.status(200).json({
-      access_token: data.access_token,
-      refresh_token: data.refresh_token,
-      expires_in: data.expires_in
-    });
-  } catch (err) {
-    res.status(500).json({ error: 'Failed to fetch token' });
+  } catch (error) {
+    console.error('Error contacting backend:', error);
   }
-}
+};
