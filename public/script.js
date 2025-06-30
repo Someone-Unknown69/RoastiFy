@@ -21,7 +21,7 @@ document.querySelector(".analyze-button").addEventListener("click", async () => 
 
     const data = await res.json();
     localStorage.setItem("tracks", JSON.stringify(data.tracks));
-    window.location.href = "dashboard.html";
+    window.location.href = "/dashboard.html";
   } catch (err) {
     document.getElementById("output").textContent = "Error: " + err.message;
   }
