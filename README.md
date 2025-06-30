@@ -38,7 +38,7 @@ spotify-playlist-analyzer/
 1. **Clone the repository:**
    ```bash
    git clone https://github.com/Someone-Unknown69/VibeiFy.git
-   cd spotify-playlist-analyzer
+   cd VibeiFy
    ```
 
 2. **Install dependencies (if using Node.js backend):**
