@@ -24,12 +24,26 @@ export default async function handler(req, res) {
   const topTracks = [...allTracks].sort((a, b) => b.popularity - a.popularity).slice(0, 5);
 
   const prompt = `
-    This Spotify playlist contains ${allTracks.length} songs. 
-    Here are the 5 most popular tracks:
-    ${topTracks.map((t, i) => `${i + 1}. "${t.name}" by ${t.artist} (popularity: ${t.popularity})`).join('\n')}
+You are an expert music analyst and web writer.
 
-    Please analyze the playlist as a whole, but focus your roast or commentary on these important tracks. If you notice any patterns or interesting facts about the playlist based on these, mention them!
-    `;
+This Spotify playlist contains ${allTracks.length} songs.
+Here are the 5 most popular tracks:
+${topTracks.map((t, i) => `${i + 1}. "${t.name}" by ${t.artist} (popularity: ${t.popularity})`).join('\n')}
+
+Please analyze the playlist as a whole, but focus your roast or commentary on these important tracks. 
+If you notice any patterns or interesting facts about the playlist based on these, mention them!
+
+**Return your entire response as a complete, styled HTML report.**
+Include:
+- A catchy heading for the report
+- A summary paragraph
+- A bulleted or numbered list of the top tracks with your comments
+- Any fun or roast-style remarks
+- Use basic HTML tags (h2, p, ul/ol, li, strong, em, etc.)
+- Optionally, add a little inline CSS for color or emphasis
+
+Do NOT include markdown or code blocks, just pure HTML.
+`;
 
   const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
