@@ -7,7 +7,7 @@ export default async function handler(req, res) {
       return res.status(400).json({ error: "Invalid JSON" });
     }
   }
-  const { tracks } = req.body;
+  const { tracks } = body;
   const apiKey = process.env.OPENROUTER_API_KEY;
 
   if (!apiKey) {
@@ -41,13 +41,14 @@ export default async function handler(req, res) {
       "model": "deepseek/deepseek-r1-0528:free",
       "messages": [
       {
-        "role": "assistant",
+        "role": "user",
         "content": prompt
       }
   ]
   })
   });
 
+  const data = await response.json()
   const aiMessage = data?.choices?.[0]?.message?.content || "No response from AI.";
   res.status(response.status).json({ message: aiMessage });
 }
