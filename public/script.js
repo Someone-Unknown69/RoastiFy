@@ -24,4 +24,6 @@ document.querySelector(".analyze-button").addEventListener("click", async () => 
   } catch (err) {
     document.getElementById("output").textContent = "Error: " + err.message;
   }
+
+  
 });
