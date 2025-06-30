@@ -111,7 +111,7 @@ do not include followup text like "Here is the html .... " basically generate on
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      "model": "qwen/qwq-32b:free",
+      "model": "mistralai/mistral-small-3.2-24b-instruct:free",
       "messages": [
       {
         "role": "user",
