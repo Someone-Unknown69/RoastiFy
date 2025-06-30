@@ -62,6 +62,7 @@ all div shall be centered vertically
    - Roast of each top 3 artist's influence on listener  
    - Histogram visualization (CSS/HTML)  
    - bar graph (CSS/HTML)
+   - Make the graphs correctly , take some time but don't present incomplete graphs
 
 3. ** Track Roast**
     - top 10 tracks of user
