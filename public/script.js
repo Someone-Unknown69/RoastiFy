@@ -9,7 +9,20 @@ async function getInfo(token) {
         });
 
         const data = await request.json();
-        document.body.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
+        
+        const tracksHtml = data.itms.map(track => `
+                <div style="margin-bottom: 1em;">
+                <img src="${track.album.images[0]?.url}" alt="cover" width="64" height="64" style="vertical-align:middle;">
+                <strong>${track.name}</strong> by ${track.artists.map(a => a.name).join(', ')}
+                <br>
+                <em>${track.album.name}</em>
+                <br>
+                <a href="${track.external_urls.spotify}" target="_blank">Open in Spotify</a>
+            </div>
+        `).join('');
+
+
+        document.body.innerHTML = `<h2>Your Top Tracks</h2>${tracksHtml}`;
     } catch(err) {
         console.log("Failed to fetch info")
     }
