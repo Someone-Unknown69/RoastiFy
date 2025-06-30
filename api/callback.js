@@ -22,6 +22,7 @@ export default async function handler(req, res) {
   const data = await response.json();
 
   if (data.access_token) {
+    console.log("Access Token:", data.access_token);
     return res.redirect(`/dashboard.html?token=${data.access_token}`);
   } else {
     return res.status(400).json(data);  // This will show the actual error
