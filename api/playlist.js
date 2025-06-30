@@ -24,7 +24,7 @@ export default async function handler(req, res) {
   }));
 
   
-  localStorage.setItem("tracks", JSON.stringify(data.tracks));
-  window.location.href = "dashboard.html";
+//   localStorage.setItem("tracks", JSON.stringify(data.tracks));
+//   window.location.href = "dashboard.html";
   res.status(200).json({ tracks });
 }
