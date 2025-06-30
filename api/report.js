@@ -9,7 +9,7 @@ export default async function handler(req, res) {
   }
   const { tracks } = req.body;
   const apiKey = process.env.OPENROUTER_API_KEY;
-  console.log(apiKey)
+
   if (!apiKey) {
     return res.status(500).json({ error: "No OpenRouter API key set" });
   }
@@ -21,7 +21,7 @@ export default async function handler(req, res) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      "model": "minimax/minimax-m1:extended",
+      "model": "mistralai/mixtral-8x22b",
       "messages": [
       {
         "role": "user",
