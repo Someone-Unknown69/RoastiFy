@@ -1,4 +1,12 @@
 export default async function handler(req, res) {
+  let body = req.body;
+  if (req.method === "POST" && typeof req.body === "string") {
+    try {
+      body = JSON.parse(req.body);
+    } catch (e) {
+      return res.status(400).json({ error: "Invalid JSON" });
+    }
+  }
   const { tracks } = req.body;
   const apiKey = process.env.OPENROUTER_API_KEY;
   console.log(apiKey)
