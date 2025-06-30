@@ -110,7 +110,7 @@ make it spotify color themed and also increase the amount of spacing and info
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      "model": "moonshotai/kimi-dev-72b:free",
+      "model": "microsoft/mai-ds-r1:free",
       "messages": [
       {
         "role": "user",
