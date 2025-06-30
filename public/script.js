@@ -26,5 +26,4 @@ document.querySelector(".analyze-button").addEventListener("click", async () => 
     document.getElementById("output").textContent = "Error: " + err.message;
   }
 
-  
 });
