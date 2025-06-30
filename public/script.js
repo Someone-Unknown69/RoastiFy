@@ -19,6 +19,17 @@ async function getInfo(token) {
                 <br>
                 <a href="${track.external_urls.spotify}" target="_blank">Open in Spotify</a>
             </div>
+
+            <button onclick="logoutSpotify()">Log out</button>
+            <script>
+                function logoutSpotify() {
+                window.location.href = "https://accounts.spotify.com/logout";
+                // Optionally, after logout, redirect back to your site:
+                setTimeout(() => {
+                window.location.href = "/";
+                }, 1000); // Wait a second for logout to complete
+            }
+            </script>
         `).join('');
 
         document.body.innerHTML = `<h2>Your Top Tracks</h2>${tracksHtml}`;
