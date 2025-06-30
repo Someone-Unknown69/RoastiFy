@@ -38,7 +38,7 @@ export default async function handler(req, res) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      "model": "deepseek/deepseek-r1-0528:free",
+      "model": "minimax/minimax-m1:extended",
       "messages": [
       {
         "role": "user",
@@ -49,7 +49,6 @@ export default async function handler(req, res) {
   });
 
   const data = await response.json()
-  console.log("OpenRouter response:", data); // Add this line
   const aiMessage = data?.choices?.[0]?.message?.content || "No response from AI.";
   res.status(response.status).json({ message: aiMessage });
 }
