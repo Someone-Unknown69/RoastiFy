@@ -110,7 +110,7 @@ make it spotify color themed and also increase the amount of spacing and info
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      "model": "google/gemini-2.0-flash-exp:free",
+      "model": "minimax/minimax-m1:extended",
       "messages": [
       {
         "role": "user",
