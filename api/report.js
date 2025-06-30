@@ -14,10 +14,22 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "No OpenRouter API key set" });
   }
 
-  const limitedTracks = (tracks || []).slice(0, 10).map(t => ({
+  const allTracks = tracks.map(t => ({
     name: t.name,
-    artist: t.artist
+    artist: t.artist,
+    popularity: t.popularity
   }));
+
+    // Sort by popularity and pick top 5
+  const topTracks = [...allTracks].sort((a, b) => b.popularity - a.popularity).slice(0, 5);
+
+  const prompt = `
+    This Spotify playlist contains ${allTracks.length} songs. 
+    Here are the 5 most popular tracks:
+    ${topTracks.map((t, i) => `${i + 1}. "${t.name}" by ${t.artist} (popularity: ${t.popularity})`).join('\n')}
+
+    Please analyze the playlist as a whole, but focus your roast or commentary on these important tracks. If you notice any patterns or interesting facts about the playlist based on these, mention them!
+    `;
 
   const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
@@ -29,13 +41,13 @@ export default async function handler(req, res) {
       "model": "deepseek/deepseek-r1-0528:free",
       "messages": [
       {
-        "role": "user",
-        "content": "Roast this Spotify playlist: " + JSON.stringify(limitedTracks)
+        "role": "assistant",
+        "content": prompt
       }
   ]
   })
   });
 
-  const data = await response.json();
-  res.status(response.status).json(data);
+  const aiMessage = data?.choices?.[0]?.message?.content || "No response from AI.";
+  res.status(response.status).json({ message: aiMessage });
 }

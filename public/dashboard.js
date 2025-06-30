@@ -16,8 +16,7 @@ if (tracks.length === 0) {
 
 
     getReport(tracks).then(aiResult => {
-      console.log(aiResult)
-      container.textContent = JSON.stringify(aiResult, null, 2);
+      container.textContent = aiResult.message;
     }).catch(err => {
       container.textContent = "AI request failed: " + err.message;
     });
