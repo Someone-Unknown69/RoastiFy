@@ -6,5 +6,16 @@
 <body>
   <h1>Login with Spotify</h1>
   <a href="/api/login"><button>Login</button></a>
+
+  <button onclick="logoutSpotify()">Log out</button>
+  <script>
+    function logoutSpotify() {
+    window.location.href = "https://accounts.spotify.com/logout";
+    // Optionally, after logout, redirect back to your site:
+    setTimeout(() => {
+      window.location.href = "/";
+    }, 1000); // Wait a second for logout to complete
+}
+</script>
 </body>
 </html>
