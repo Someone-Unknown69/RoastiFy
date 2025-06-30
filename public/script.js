@@ -1,5 +1,4 @@
 const token = new URLSearchParams(window.location.search).get('token');
-
 console.log(token);
 
 
@@ -10,11 +9,11 @@ async function getInfo(token) {
         });
 
         const data = await request.json();
+        document.body.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
     } catch(err) {
         console.log("Failed to fetch info")
     }
 
-    document.body.innerHTML = `<pre>${JSON.stringify(data, null, 2)}</pre>`;
     
 }
 if (token) {
