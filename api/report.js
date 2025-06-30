@@ -49,6 +49,7 @@ export default async function handler(req, res) {
   });
 
   const data = await response.json()
+  console.log("OpenRouter response:", data); // Add this line
   const aiMessage = data?.choices?.[0]?.message?.content || "No response from AI.";
   res.status(response.status).json({ message: aiMessage });
 }
