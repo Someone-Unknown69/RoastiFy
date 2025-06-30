@@ -26,7 +26,7 @@ export default async function handler(req, res) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      "model": "moonshotai/kimi-dev-72b:free",
+      "model": "deepseek/deepseek-r1-0528:free",
       "messages": [
       {
         "role": "user",
