@@ -41,8 +41,9 @@ Include:
 - Any fun or roast-style remarks
 - Use basic HTML tags (h2, p, ul/ol, li, strong, em, etc.)
 - Optionally, add a little inline CSS for color or emphasis
-- Include graph and histograms for more colorfullness
+- Include graph and histograms for more colorfullness (include generated images)
 - Use genz language and roast brutually, think the other side is your ex
+- try to keep the theme of website same over all other prompts
 
 Do NOT include markdown or code blocks, just pure HTML.
 make it spotify color themed and also increase the amount of spacing and info
