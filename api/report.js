@@ -20,8 +20,8 @@ export default async function handler(req, res) {
     popularity: t.popularity
   }));
 
-    // Sort by popularity and pick top 10
-  const topTracks = [...allTracks].sort((a, b) => b.popularity - a.popularity).slice(0, 10);
+    // Sort by popularity and pick top 20
+  const topTracks = [...allTracks].sort((a, b) => b.popularity - a.popularity).slice(0, 20);
 
   const prompt = `
 You are an expert music analyst and web writer.
@@ -60,6 +60,7 @@ make sure that all the containers shall have 90% width
    - Play count estimates (based on popularity)  
    - Roast of each artist's influence on listener  
    - Histogram visualization (CSS/HTML)  
+   - bar graph (CSS/HTML)
 
 3. **⏳ Mood Timeline**  
    - SVG/ASCII graph showing emotional descent  
