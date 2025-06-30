@@ -1,3 +1,8 @@
+export default function handler(req, res) {
+  // Your callback logic here
+  res.status(200).send("Callback working!");
+}
+
 // window.onload = async () => {
 //   const urlParams = new URLSearchParams(window.location.search);
 //   const code = urlParams.get('code');
