@@ -1,41 +1,27 @@
-const token = new URLSearchParams(window.location.search).get('token');
-console.log(token);
+document.querySelector(".analyze-button").addEventListener("click", async () => {
+  const url = document.getElementById("playlist-link").value;
 
+  if (!url || !url.includes("playlist/")) {
+    document.getElementById("output").textContent = "Please enter a valid Spotify playlist URL.";
+    return;
+  }
 
-async function getInfo(token) {
-    try{
-        const request = await fetch('https://api.spotify.com/v1/me/top/tracks?limit=10', {
-        headers: { Authorization: `Bearer ${token}` }
-        });
+  try {
+    const res = await fetch("/api/playlist", {
+      method: "POST",
+      headers: {
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({ playlistUrl: url }),
+    });
 
-        const data = await request.json();
-        
-        const tracksHtml = data.items.map(track => `
-            <div style="margin-bottom: 1em;">
-                <img src="${track.album.images[0]?.url}" alt="cover" width="64" height="64" style="vertical-align:middle;">
-                <strong>${track.name}</strong> by ${track.artists.map(a => a.name).join(', ')}
-                <br>
-                <em>${track.album.name}</em>
-                <br>
-                <a href="${track.external_urls.spotify}" target="_blank">Open in Spotify</a>
-            </div>
-        `).join('');
-
-        document.body.innerHTML = `<h2>Your Top Tracks</h2>${tracksHtml}`;
-    } catch (err) {
-        console.log("Failed to fetch info");
+    if (!res.ok) {
+      throw new Error("Failed to fetch playlist data.");
     }
 
-    
-}
-if (token) {
-    getInfo(token)
-}
-
-async function logoutSpotify() {
-window.location.href = "https://accounts.spotify.com/logout";
-
-setTimeout(() => {
-    window.location.href = "/";
-}, 1000);
-}
+    const data = await res.json();
+    document.getElementById("output").textContent = JSON.stringify(data.tracks, null, 2);
+  } catch (err) {
+    document.getElementById("output").textContent = "Error: " + err.message;
+  }
+});
