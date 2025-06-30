@@ -21,7 +21,7 @@ export default async function handler(req, res) {
   }));
 
     // Sort by popularity and pick top 20
-  const topTracks = [...allTracks].sort((a, b) => b.popularity - a.popularity).slice(0, 20);
+  const topTracks = [...allTracks].sort((a, b) => b.popularity - a.popularity);
 
   const prompt = `
 You are an expert music analyst and web writer.
@@ -67,6 +67,7 @@ all div shall be centered vertically
     - top 10 tracks of user
     - roast em brutually
     - popularity graph of top 5 songs
+    - also include top 10 least populatr tracks that user listens
 
 4. **⏳ Mood Timeline**  
    - SVG/ASCII graph showing emotional descent  
