@@ -20,7 +20,8 @@ document.querySelector(".analyze-button").addEventListener("click", async () => 
     }
 
     const data = await res.json();
-    document.getElementById("output").textContent = JSON.stringify(data.tracks, null, 2);
+    localStorage.setItem("tracks", JSON.stringify(data.tracks));
+    window.location.href = "dashboard.html";
   } catch (err) {
     document.getElementById("output").textContent = "Error: " + err.message;
   }

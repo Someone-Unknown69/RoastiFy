@@ -22,9 +22,5 @@ export default async function handler(req, res) {
     id: item.track.id,
     popularity: item.track.popularity,
   }));
-
-  
-//   localStorage.setItem("tracks", JSON.stringify(data.tracks));
-//   window.location.href = "dashboard.html";
   res.status(200).json({ tracks });
 }
