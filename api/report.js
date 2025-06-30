@@ -21,7 +21,7 @@ export default async function handler(req, res) {
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      "model": "qwen/qwen2-72b-instruct",
+      "model": "thedrummer/anubis-70b-v1.1",
       "messages": [
       {
         "role": "user",
