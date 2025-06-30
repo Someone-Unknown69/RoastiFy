@@ -101,6 +101,7 @@ IMPORTANT:
 make the html webpage responsive so it can run in mobiles too
 Do NOT include markdown or code blocks, just pure HTML.
 make it spotify color themed and also increase the amount of spacing and info
+do not include followup text like "Here is the html .... " basically generate only required element
 `;
 
   const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
@@ -110,7 +111,7 @@ make it spotify color themed and also increase the amount of spacing and info
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      "model": "deepseek/deepseek-chat-v3-0324:free",
+      "model": "google/gemini-2.5-pro-exp-03-25",
       "messages": [
       {
         "role": "user",
