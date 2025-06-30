@@ -3,7 +3,6 @@ import querystring from "querystring";
 export default function handler(req, res) {
   const redirect_uri = "https://vibefy-theta.vercel.app/api/callback"; // change this!
   const scope = "user-read-private user-read-email user-top-read";
-  console.log("CLIENT_ID from env:", process.env.CLIENT_ID);
 
   const authUrl = "https://accounts.spotify.com/authorize?" + querystring.stringify({
     response_type: "code",
@@ -11,6 +10,6 @@ export default function handler(req, res) {
     scope,
     redirect_uri
   });
-
+  console.log(authUrl);
   res.redirect(authUrl);
 }
