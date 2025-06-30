@@ -10,8 +10,8 @@ async function getInfo(token) {
 
         const data = await request.json();
         
-        const tracksHtml = data.itms.map(track => `
-                <div style="margin-bottom: 1em;">
+        const tracksHtml = data.items.map(track => `
+            <div style="margin-bottom: 1em;">
                 <img src="${track.album.images[0]?.url}" alt="cover" width="64" height="64" style="vertical-align:middle;">
                 <strong>${track.name}</strong> by ${track.artists.map(a => a.name).join(', ')}
                 <br>
@@ -21,10 +21,9 @@ async function getInfo(token) {
             </div>
         `).join('');
 
-
         document.body.innerHTML = `<h2>Your Top Tracks</h2>${tracksHtml}`;
-    } catch(err) {
-        console.log("Failed to fetch info")
+    } catch (err) {
+        console.log("Failed to fetch info");
     }
 
     
