@@ -43,6 +43,7 @@ Include:
 - Optionally, add a little inline CSS for color or emphasis
 
 Do NOT include markdown or code blocks, just pure HTML.
+make it spotify color themed and also increase the amount of spacing and info
 `;
 
   const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
