@@ -14,6 +14,11 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "No OpenRouter API key set" });
   }
 
+  const limitedTracks = (tracks || []).slice(0, 10).map(t => ({
+    name: t.name,
+    artist: t.artist
+  }));
+
   const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
     headers: {
@@ -25,7 +30,7 @@ export default async function handler(req, res) {
       "messages": [
       {
         "role": "user",
-        "content": "Roast this Spotify playlist: " + JSON.stringify(tracks)
+        "content": "Roast this Spotify playlist: " + JSON.stringify(limitedTracks)
       }
   ]
   })
