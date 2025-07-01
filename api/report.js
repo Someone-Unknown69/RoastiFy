@@ -145,7 +145,8 @@ Page6. **🎯 Final Verdict**
   console.log("RAW AI API RESPONSE:", data); // <-- Add this line
 
   let aiMessage = data.choices?.[0]?.message?.content || "Null";
-  console.log("AI MESSAGE CONTENT:", aiMessage); // <-- Add this line
+  aiMessage = aiMessage.replace(/```json\n?|```/g, '').trim();
+  console.log(aiMessage)
 
   let pagesHtml;
   try {
