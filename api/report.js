@@ -14,21 +14,26 @@ export default async function handler(req, res) {
     return res.status(500).json({ error: "No OpenRouter API key set" });
   }
 
-  const allTracks = tracks.map(t => ({
+  const allTracks = tracks.map((t) => ({
     name: t.name,
     artist: t.artist,
-    popularity: t.popularity
+    popularity: t.popularity,
   }));
 
-    // Sort by popularity and pick top 20
+  // Sort by popularity and pick top 20
   const topTracks = [...allTracks].sort((a, b) => b.popularity - a.popularity);
 
-const prompt = `
+  const prompt = `
 You are an expert music analyst and web writer.
 
 This Spotify playlist contains ${allTracks.length} songs.
 Here are the 5 most popular tracks:
-${topTracks.map((t, i) => `${i + 1}. "${t.name}" by ${t.artist} (popularity: ${t.popularity})`).join('\n')}
+${topTracks
+  .map(
+    (t, i) =>
+      `${i + 1}. "${t.name}" by ${t.artist} (popularity: ${t.popularity})`
+  )
+  .join("\n")}
 
 Please analyze the playlist as a whole, but focus your roast or commentary on these important tracks. 
 You are a savage Gen-Z music therapist, data scientist, and graphic design wizard rolled into one. Your mission: **Analyze Spotify playlists and generate visually stunning, brutally honest roast reports** with psychoanalysis-level insights.
@@ -120,37 +125,48 @@ Page6. **🎯 Final Verdict**
   "page6": "<div class=\"report-section\">...</div>"
 }
 `;
-  const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
-    method: "POST",
-    headers: {
-      "Authorization": `Bearer ${apiKey}`,
-      "Content-Type": "application/json"
-    },
-    body: JSON.stringify({
-      "model": "google/gemini-2.0-flash-001",
-      "messages": [
-      {
-        "role": "user",
-        "content": prompt
-      }
-  ]
-  })
-  });
+  const response = await fetch(
+    "https://openrouter.ai/api/v1/chat/completions",
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "google/gemini-2.0-flash-001",
+        messages: [
+          {
+            role: "user",
+            content: prompt,
+          },
+        ],
+      }),
+    }
+  );
 
   if (response.status === 429) {
-  return res.status(429).json({ message: "Rate limit exceeded. Please wait and try again later. (The developer is using free AI model so this shi happens" });
+    return res
+      .status(429)
+      .json({
+        message:
+          "Rate limit exceeded. Please wait and try again later. (The developer is using free AI model so this shi happens",
+      });
   }
 
-  const data = await response.json()
-  console.log("RAW AI API RESPONSE:", data);
+  let content = data.choices?.[0]?.message?.content || "";
+  let cleaned = content.replace(/```json\n?|```/g, "").trim();
 
-  let aiMessage = data.choices?.[0]?.message?.content || "Null";
-  aiMessage = aiMessage.replace(/```json\n?|```/g, '').trim();
-  console.log(aiMessage)
+  // Fix bad escape sequences by replacing \ followed by a non-escape character
+  // Allows only valid escapes: \" \\ \/ \b \f \n \r \t \uXXXX
+  cleaned = cleaned.replace(/\\(?!["\\/bfnrtu])/g, "\\\\");
 
-  let parsedMessage = JSON.parse(aiMessage);
-
-  console.log(parsedMessage.page1)
-
-  res.status(response.status).json(parsedMessage);
+  try {
+    const parsed = JSON.parse(cleaned);
+    console.log(parsed.page1);
+    res.status(200).json(parsed);
+  } catch (e) {
+    console.error("❌ JSON.parse failed:", e.message);
+    res.status(500).json({ error: "Invalid JSON returned from AI." });
+  }
 }
