@@ -85,7 +85,7 @@ Return ONLY a valid JSON object as your entire response. Do NOT include any text
   }
 
   const data = await response.json()
-  let aiMessage = data?.choices?.[0]?.message?.content || "";
+  const aiMessage = response.choices[0].message.content || "Null";
   aiMessage = aiMessage.replace(/```[a-z]*\n?/gi, '').replace(/```/g, '').trim();
 
   let pagesHtml;

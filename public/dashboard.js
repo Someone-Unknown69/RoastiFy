@@ -55,7 +55,6 @@ if (tracks.length === 0) {
     return data;
   }  
 
-  // Vibe-Psychoanalysis
   getReport(tracks).then(aiResult => {
     const pagesHtml = JSON.parse(aiResult.message)
     pages[0].innerHTML = pagesHtml.page1;
