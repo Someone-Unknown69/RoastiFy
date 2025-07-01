@@ -4,6 +4,10 @@
   <meta charset="UTF-8">
   <title>Playlist Report</title>
   <link rel="stylesheet" href="dashboard.css">
+  <link
+    href="https://fonts.googleapis.com/css2?family=Inter:wght@400;600&display=swap"
+    rel="stylesheet"
+  />
 </head>
 <body>
   <main>
@@ -11,79 +15,24 @@
   </main>
   
   <div class="Output-container" style="display: block;">
-<!--     
-    1. **Vibe Psychoanalysis**  
-    - "This playlist is giving..." (mood summary)  
-    - Emotional damage assessment (0-100 scale)  
-    - Dominant personality traits revealed  
-    - "Playlist Aura" (3-5 emoji descriptors) -->
-    
     <div id="Loading">Loading...</div>
   </div>
+  <div class="Output-container"></div>
+  <div class="Output-container"></div>
+  <div class="Output-container"></div>
+  <div class="Output-container"></div>
+  <div class="Output-container"></div>
 
-
-  <div class="Output-container">
-
-    **Artist Dependencies**  
-   - Top 3 "emotional support artists"  
-   - Play count estimates (based on popularity)  
-   - Roast of each top 3 artist's influence on listener  
-   - Histogram visualization (CSS/HTML)  
-   - bar graph (CSS/HTML)
-   - Make the graphs correctly , take some time but don't present incomplete graphs
-
-  </div>
-
-
-  <div class="Output-container">
-
-    **Track Roast**
-    - top 10 tracks of user
-    - roast em brutually
-    - popularity graph of top 5 songs
-    - also include top 10 least populatr tracks that user listens
-
-  </div>
-
-
-  <div class="Output-container">
-
-   **Mood Timeline**  
-   - SVG/ASCII graph showing emotional descent  
-   - Key phases: Denial → Spiral → Regret  
-   - "3AM thoughts" probability percentage  
-
-  </div>
-
-
-  <div class="Output-container">
-
-   **Playlist DNA**  
-   - Genre breakdown with percentages  
-   - "Most Overused Lyric" award  
-   - Time capsule rating (how dated it feels)  
-
-  </div>
-  
-
-  <div class="Output-container">
-
-   **Final Verdict**  
-   - Damage Score (0-100)  
-   - "Therapist Notes" (diagnoses like "Post-Breakup Musical Stockholm Syndrome")  
-   - One-liner for the victim's Instagram bio 
-
-  </div>
-  
   <div class="buttons-container">
     <button id="prev" style="display: none;" oncontextmenu="return false;"">Previous</button>
-    <button id="next" style="margin-left: auto; display: one;" oncontextmenu="return false;">Next</button>
- </div>
-  
+    <button id="next" style="margin-left: auto; display: none;" oncontextmenu="return false;">Next</button>
+  </div>
+
+  <div>
+    <button class="return" style="display: none;" id="return">Return to home page</button>
+  </div>
 
   <footer>© 2025 VibeiFy — Built with ❤️ by Someone-Unknown69</footer>
-
-
   <script src="dashboard.js"></script>
 </body>
 </html>

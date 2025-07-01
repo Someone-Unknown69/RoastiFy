@@ -1,6 +1,7 @@
 const pages = document.querySelectorAll('.Output-container')
 const next_btn = document.getElementById("next");
-const prev_btn = document.getElementById("prev")
+const prev_btn = document.getElementById("prev");
+const return_btn = document.getElementById("return");
 const tracks = JSON.parse(localStorage.getItem("tracks") || "[]");
 const container = document.getElementById("tracks-container");
 let curr_page = 0;
@@ -40,6 +41,9 @@ prev_btn.addEventListener("click",() => {
   check_btn(curr_page);
 })
 
+return_btn.addEventListener("click" ,()=>{
+  window.location.href = "/";
+});
 
 
 if (tracks.length === 0) {
@@ -65,6 +69,7 @@ if (tracks.length === 0) {
     pages[4].innerHTML = aiResult.page5;
     pages[5].innerHTML = aiResult.page6;
     next_btn.style.display = "flex";
+    return_btn.style.display = "flex";
   })
   .catch(err => {
     console.error("AI ERROR:", err);

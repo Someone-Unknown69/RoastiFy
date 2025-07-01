@@ -10,7 +10,7 @@ body {
   align-items: center;
   background: #121212;
   color: #fff;
-  font-family: "Segoe UI", "Arial", sans-serif;
+  font-family: "Inter", sans-serif;
   margin: 0;
   padding: 0;
   min-height: 100vh;
@@ -41,7 +41,7 @@ a:visited {
   color: #1db954;
   text-decoration: underline;
 }
-/* Optional: Style scrollbars for dark mode */
+
 ::-webkit-scrollbar {
   width: 8px;
   background: #232323;
@@ -92,12 +92,16 @@ button:hover {
 }
 
 footer {
+  margin-top: auto;
   width: 100%;
-  position: absolute;
-  bottom: 0;
   padding: 1rem 2rem;
   background-color: #1e1e1e;
   text-align: center;
   font-size: 0.9rem;
-  color: var(--muted-text);
+  color: #b3b3b3;
+}
+
+.return {
+  width: fit-content;
+  padding: 20px;
 }
