@@ -117,7 +117,7 @@ Return ONLY a valid JSON object as your entire response. Do NOT include any text
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      "model": "deepseek/deepseek-r1-0528-qwen3-8b:free",
+      "model": "google/gemini-2.0-flash-001",
       "messages": [
       {
         "role": "user",
