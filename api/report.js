@@ -131,7 +131,13 @@ Page6. **🎯 Final Verdict**
   "page5": "<div class=\"report-section\">...</div>",
   "page6": "<div class=\"report-section\">...</div>"
 }
+STOP. Output ONLY a valid JSON object as your entire response. Do NOT include any explanations, markdown, code blocks, or extra text. If you include anything except a valid JSON object, your answer will be rejected.
 `;
+  const response = await getAIResponse(prompt, apiKey);
+  res.status(200).json(response);
+}
+
+async function getAIResponse(prompt, apiKey, attempt = 1) {
   const response = await fetch(
     "https://openrouter.ai/api/v1/chat/completions",
     {
@@ -151,34 +157,38 @@ Page6. **🎯 Final Verdict**
       }),
     }
   );
-
   if (response.status === 429) {
-    return res
-      .status(429)
-      .json({
-        message:
-          "Rate limit exceeded. Please wait and try again later. (The developer is using free AI model so this shi happens",
-      });
+    throw new Error("Rate limit exceeded. Please wait and try again later.");
   }
-
-const data = await response.json(); // ✅ this must come FIRST
-
-console.log("RAW AI API RESPONSE:", data);
-
-let aiMessage = data.choices?.[0]?.message?.content || '';
-let cleaned = aiMessage.replace(/```json\n?|```/g, '').trim();
-
-// Fix invalid escape sequences
-cleaned = cleaned.replace(/\\(?!["\\/bfnrtu])/g, '\\\\');
-
-try {
-  const parsed = JSON.parse(cleaned);
-  console.log("✅ page1:", parsed.page1);
-  res.status(200).json(parsed);
-} catch (e) {
-  console.error("❌ JSON.parse failed:", e.message);
-  res.status(500).json({ error: "Invalid JSON returned from AI." });
-}
-
-
+  const data = await response.json();
+  let aiMessage = data.choices?.[0]?.message?.content || '';
+  let cleaned = aiMessage.replace(/```json\n?|```/g, '').trim();
+  cleaned = cleaned.replace(/\\(?!["\\/bfnrtu])/g, '\\\\');
+  try {
+    const parsed = JSON.parse(cleaned);
+    // Check for undefined or missing keys
+    if (
+      !parsed ||
+      !parsed.page1 ||
+      !parsed.page2 ||
+      !parsed.page3 ||
+      !parsed.page4 ||
+      !parsed.page5 ||
+      !parsed.page6
+    ) {
+      if (attempt < 2) {
+        console.warn("AI response incomplete, retrying...");
+        return await getAIResponse(prompt, apiKey, attempt + 1);
+      } else {
+        throw new Error("The Developer used a cheap AI model, refresh the page");
+      }
+    }
+    return parsed;
+  } catch (e) {
+    if (attempt < 2) {
+      console.warn("JSON.parse failed, retrying...");
+      return await getAIResponse(prompt, apiKey, attempt + 1);
+    }
+    throw new Error("Invalid JSON returned from AI after retry.");
+  }
 }
