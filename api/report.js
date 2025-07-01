@@ -46,11 +46,12 @@ Generate a JSON object with 6 keys ("page1"..."page6"), each containing a concis
 
 **VISUAL & CONTENT UPGRADE:**
 - Make each <div class="report-section"> visually bold and engaging, not plain or minimal.
+- color scheme of cards shall be combination of #1DB954 and #1e1e1e , in case of graphs and pie charts use different shades of green or blue
 - Use creative CSS: gradients, cards, badges, icons, emojis, progress bars, SVGs, and shadow effects.
 - Add micro-details: playlist personality badges, fun facts, top lyric snippet, energy/vibe meters, roast badges, etc.
 - Use Spotify-style UI: rounded cards, neon #1DB954 highlights, playful microcopy, and modern layouts.
 - Each section should feel like a unique, interactive dashboard card, not a boring text block.
-- Use more spotify colors, spacing, and visual hierarchy for clarity and appeal.
+- Use more spacing, and visual hierarchy for clarity and appeal.
 - Add more data-driven insights and playful Gen-Z roasts.
 
 **STRICT OUTPUT:**
