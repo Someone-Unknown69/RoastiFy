@@ -39,9 +39,6 @@ If you notice any patterns or interesting facts about the playlist based on thes
 Analyze the playlist as a whole, focusing your roast and commentary on these tracks.
 Generate a JSON object with 6 keys ("page1"..."page6"), each containing a concise, fully responsive HTML fragment for a single <div class="report-section">...</div> container (not a full HTML page).
 
-ABSOLUTELY DO NOT include any explanations, markdown, code blocks, or extra text.
-Return ONLY a valid JSON object as your entire response.
-
 **VISUAL & CONTENT UPGRADE:**
 - Make each <div class="report-section"> visually bold and engaging, not plain or minimal.
 - Use creative CSS: gradients, cards, badges, icons, emojis, progress bars, SVGs, and shadow effects.
@@ -52,11 +49,8 @@ Return ONLY a valid JSON object as your entire response.
 - Add more data-driven insights and playful Gen-Z roasts.
 
 **STRICT OUTPUT:**
-- Output must be a pure JSON object, no markdown, code blocks, or explanations.
-- Each value must be a single <div class="report-section">...</div> container, dark theme, Spotify #1DB954 accents, 90% width, mobile-friendly, valid HTML/CSS.
 - All graphs/visuals must be complete and responsive. If not possible, omit and mention why.
 - Be concise, visually clear, and avoid filler.
-- Return ONLY a valid JSON object as your entire response. Do NOT include any text, markdown, code blocks, or explanations—just the JSON.
 
 do not include followup text like "Here is the html .... " basically generate only required element
 Do NOT include any notes, disclaimers, or explanations about the HTML, CSS, responsiveness, or Gen-Z slang in your output. Only return the actual HTML report content, nothing else.
@@ -77,44 +71,44 @@ Page1. **🧠 Vibe Psychoanalysis**
    - Emotional damage assessment (0-100 scale)  
    - Dominant personality traits revealed  
    - "Playlist Aura" (3-5 emoji descriptors)  
+   - A final sarcastic quote in big box with labbeling as vibefy
 
 Page2. **👑 Artist Dependencies**  
    - Top 5 "emotional support artists"  
    - Play count estimates (based on popularity)  
    - Roast of each top 3 artist's influence on listener  
-   - Histogram visualization (CSS/HTML)  
-   - bar graph (CSS/HTML)
+   - Histogram visualization of top 3 artist(CSS/HTML)  
    - Make the graphs correctly , take some time but don't present incomplete graphs
 
 Page3. ** Track Roast**
     - top 10 tracks of user
-    - roast em brutually
-    - popularity graph of top 5 songs
-    - also include top 10 least populatr tracks that user listens
+    - show estimate plays of each track in top 5 according to popularity
+    - roast top 5 tracks individually
+    - popularity pie chart of top 5 songs
+    - Make the pie chart colorful with CSS/HTML supportive
+    - also include top 10 least populatr tracks that user listens and roast each of them
 
 Page4. **⏳ Mood Timeline**  
    - SVG/ASCII graph showing emotional descent  
    - Key phases: Denial → Spiral → Regret  
    - "3AM thoughts" probability percentage  
+   - Give some suggestions for songs that will fix the mood of the user
 
 Page5. **📊 Playlist DNA**  
    - Genre breakdown with percentages  
+   - A graph of genre breakdown with colors and make it CSS/HTML Friendly
    - "Most Overused Lyric" award  
    - Time capsule rating (how dated it feels)  
 
 Page6. **🎯 Final Verdict**  
    - Damage Score (0-100)  
    - "Therapist Notes" (diagnoses like "Post-Breakup Musical Stockholm Syndrome")  
+   - Funny medicines that have names based on the songs to add some sarcasm
    - One-liner for the victim's Instagram bio  
 
 **Requirements:**
-- Output must be a pure JSON object, no markdown, code blocks, or explanations.
-- Each value must be a single <div class="report-section">...</div> container, dark theme, Spotify #1DB954 accents, 90% width, mobile-friendly, valid HTML/CSS.
 - All graphs/visuals must be complete and responsive. If not possible, omit and mention why.
 - Be concise, visually clear, and avoid filler.
-
-**IMPORTANT:**
-Return ONLY a valid JSON object as your entire response. Do NOT include any text, markdown, code blocks, or explanations—just the JSON.
 
 **Example output:**
 {
@@ -152,8 +146,6 @@ Return ONLY a valid JSON object as your entire response. Do NOT include any text
 
   let aiMessage = data.choices?.[0]?.message?.content || "Null";
   console.log("AI MESSAGE CONTENT:", aiMessage); // <-- Add this line
-
-  aiMessage = aiMessage.replace(/```[a-z]*\n?/gi, '').replace(/```/g, '').trim();
 
   let pagesHtml;
   try {
