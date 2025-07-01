@@ -36,7 +36,6 @@ If you notice any patterns or interesting facts about the playlist based on thes
 **🎨 REPORT REQUIREMENTS:**  
 **FORMAT:** HTML/CSS (dark theme, Spotify-inspired #1DB954 accents). 
 make sure that all the containers shall have 90% width
-all div shall be centered vertically
 
 The HTML you generate must be fully responsive for mobile devices:
 - Include <meta name="viewport" content="width=device-width, initial-scale=1"> in the <head>.
