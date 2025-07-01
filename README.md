@@ -1,10 +1,10 @@
-# VibeiFy – Spotify Playlist Analyzer 🎵
+# RoastiFy – Spotify Playlist Analyzer 🎵
 
 ## Overview
-**VibeiFy** is a modern, Spotify-themed web app that lets you analyze any Spotify playlist with a single link. Get a detailed, AI-powered roast and psychoanalysis of your music taste, complete with responsive HTML reports, fun graphs, and Gen-Z sass. No login required!
+**RoastiFy** is a modern, Spotify-themed web app that lets you analyze any Spotify playlist with a single link. Get a detailed, AI-powered roast and psychoanalysis of your music taste, complete with responsive HTML reports, fun graphs, and Gen-Z sass. No login required!
 
 ## Features
-- 🎧 **Paste & Analyze:** Enter any Spotify playlist URL and get instant insights.
+- 🎧 **Paste & Analyze:** Enter any Spotify public playlist URL and get instant insights.
 - 🤖 **AI-Powered Reports:** Receive a fully styled, HTML/CSS report with mood analysis, artist dependencies, track roasts, and more.
 - 📊 **Visualizations:** Responsive bar graphs, histograms, and SVGs (when possible).
 - 📱 **Mobile-First Design:** Looks great on all devices.
@@ -13,12 +13,12 @@
 
 ## How It Works
 1. **Paste** your Spotify playlist link on the homepage.
-2. **Click Analyze** to let VibeiFy scan your playlist.
+2. **Click Analyze** to let RoastiFy scan your playlist.
 3. **Enjoy** a personalized, AI-generated roast and deep-dive report!
 
 ## Project Structure
 ```
-spotify-playlist-analyzer/
+RoastiFy/
 ├── public/
 │   ├── index.html         # Landing page
 │   ├── dashboard.html     # Report page
@@ -39,8 +39,8 @@ spotify-playlist-analyzer/
 
 1. **Clone the repository:**
    ```bash
-   git clone https://github.com/Someone-Unknown69/VibeiFy.git
-   cd VibeiFy
+   git clone https://github.com/Someone-Unknown69/RoastiFy.git
+   cd RoastiFy
    ```
 
 2. **Install dependencies (if using Node.js backend):**
