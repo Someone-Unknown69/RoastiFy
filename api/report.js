@@ -147,7 +147,7 @@ async function getAIResponse(prompt, apiKey, attempt = 1) {
         "Content-Type": "application/json",
       },
       body: JSON.stringify({
-        model: "google/gemini-2.0-flash-001",
+        model: "deepseek/deepseek-r1-0528-qwen3-8b:free",
         messages: [
           {
             role: "user",
