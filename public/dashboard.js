@@ -68,7 +68,6 @@ if (tracks.length === 0) {
   
   getReport(tracks)
   .then(aiResult => {
-    console.log("AI result:", aiResult); // 👀 If this doesn't print, we never got a result
     pages[0].innerHTML = aiResult.page1;
     pages[1].innerHTML = aiResult.page2;
     pages[2].innerHTML = aiResult.page3;
@@ -77,7 +76,7 @@ if (tracks.length === 0) {
     pages[5].innerHTML = aiResult.page6;
   })
   .catch(err => {
-    console.error("AI ERROR:", err); // 👈 Check your console here
+    console.error("AI ERROR:", err);
     pages[0].textContent = "AI request failed: " + err.message;
   });
 
