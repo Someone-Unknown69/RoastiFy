@@ -32,6 +32,9 @@ ${topTracks.slice(0, 5).map((t, i) => `${i + 1}. "${t.name}" by ${t.artist} (pop
 
 Analyze the playlist as a whole, focusing your roast and commentary on these tracks.  
 Generate a JSON object with 6 keys ("page1"..."page6"), each containing a concise, fully responsive HTML string for:
+ABSOLUTELY DO NOT include any explanations, markdown, code blocks, or extra text. 
+Return ONLY a valid JSON object as your entire response. 
+If you cannot generate the JSON, return: {"page1":"","page2":"","page3":"","page4":"","page5":"","page6":""}
 
 - page1: Vibe Psychoanalysis (mood summary, emotional damage score, dominant traits, playlist aura emojis)
 - page2: Artist Dependencies (top 3 artists, play count estimates, roast, responsive bar/histogram)
