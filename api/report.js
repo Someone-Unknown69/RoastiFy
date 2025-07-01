@@ -127,6 +127,8 @@ do not include followup text like "Here is the html .... " basically generate on
   }
 
   const data = await response.json()
-  const aiMessage = data?.choices?.[0]?.message?.content || "No response from AI.";
+  let aiMessage = data?.choices?.[0]?.message?.content || "No response from AI.";
+  aiMessage = aiMessage.replace(/```[a-z]*\n?/gi, '').replace(/```/g, '').trim();
+
   res.status(response.status).json({ message: aiMessage });
 }
