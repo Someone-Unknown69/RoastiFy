@@ -111,7 +111,7 @@ do not include followup text like "Here is the html .... " basically generate on
       "Content-Type": "application/json"
     },
     body: JSON.stringify({
-      "model": "google/gemini-1.5-flash",
+      "model": "meta-llama/llama-4-maverick:free",
       "messages": [
       {
         "role": "user",
