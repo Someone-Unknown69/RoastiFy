@@ -46,7 +46,7 @@ if (tracks.length === 0) {
   pages[0].textContent = "No tracks found.";
 } else {
   async function getReport(tracks) {
-    const response = await fetch("/api/page1", {
+    const response = await fetch("/api/report", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ tracks })
@@ -57,7 +57,13 @@ if (tracks.length === 0) {
 
   // Vibe-Psychoanalysis
   getReport(tracks).then(aiResult => {
-    pages[0].innerHTML = aiResult.message; // Render the AI's HTML report
+    const pagesHtml = JSON.parse(aiResult.message)
+    pages[0].innerHTML = pagesHtml.page1;
+    pages[1].innerHTML = pagesHtml.page2;
+    pages[2].innerHTML = pagesHtml.page3;
+    pages[3].innerHTML = pagesHtml.page4;
+    pages[4].innerHTML = pagesHtml.page5;
+    pages[5].innerHTML = pagesHtml.page6;
   }).catch(err => {
     pages[0].textContent = "AI request failed: " + err.message;
   });  
