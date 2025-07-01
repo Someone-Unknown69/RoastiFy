@@ -154,19 +154,24 @@ Page6. **🎯 Final Verdict**
       });
   }
 
-  let content = data.choices?.[0]?.message?.content || "";
-  let cleaned = content.replace(/```json\n?|```/g, "").trim();
+const data = await response.json(); // ✅ this must come FIRST
 
-  // Fix bad escape sequences by replacing \ followed by a non-escape character
-  // Allows only valid escapes: \" \\ \/ \b \f \n \r \t \uXXXX
-  cleaned = cleaned.replace(/\\(?!["\\/bfnrtu])/g, "\\\\");
+console.log("RAW AI API RESPONSE:", data);
 
-  try {
-    const parsed = JSON.parse(cleaned);
-    console.log(parsed.page1);
-    res.status(200).json(parsed);
-  } catch (e) {
-    console.error("❌ JSON.parse failed:", e.message);
-    res.status(500).json({ error: "Invalid JSON returned from AI." });
-  }
+let aiMessage = data.choices?.[0]?.message?.content || '';
+let cleaned = aiMessage.replace(/```json\n?|```/g, '').trim();
+
+// Fix invalid escape sequences
+cleaned = cleaned.replace(/\\(?!["\\/bfnrtu])/g, '\\\\');
+
+try {
+  const parsed = JSON.parse(cleaned);
+  console.log("✅ page1:", parsed.page1);
+  res.status(200).json(parsed);
+} catch (e) {
+  console.error("❌ JSON.parse failed:", e.message);
+  res.status(500).json({ error: "Invalid JSON returned from AI." });
+}
+
+
 }
