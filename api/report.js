@@ -79,8 +79,15 @@ Generate a JSON object with 5 keys ("page1"..."page5"), each containing a concis
   }
 
   const data = await response.json()
-  let aiMessage = data?.choices?.[0]?.message?.content || "No response from AI.";
+  let aiMessage = data?.choices?.[0]?.message?.content || "";
   aiMessage = aiMessage.replace(/```[a-z]*\n?/gi, '').replace(/```/g, '').trim();
 
-  res.status(response.status).json({ message: aiMessage });
+  let pagesHtml;
+  try {
+    pagesHtml = JSON.parse(aiMessage);
+  } catch (e) {
+    return res.status(500).json({ message: "AI did not return valid JSON.", raw: aiMessage });
+  }
+
+  res.status(response.status).json({ message: pagesHtml });
 }
