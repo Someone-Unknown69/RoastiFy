@@ -91,6 +91,7 @@ Return ONLY a valid JSON object as your entire response. Do NOT include any text
   let pagesHtml;
   try {
     pagesHtml = JSON.parse(aiMessage);
+    console.log(pagesHtml)
   } catch (e) {
     return res.status(500).json({ message: "AI did not return valid JSON.", raw: aiMessage });
   }
