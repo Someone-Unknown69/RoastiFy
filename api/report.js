@@ -78,7 +78,7 @@ Page1. **🧠 Vibe Psychoanalysis**
    - Emotional damage assessment (0-100 scale)  
    - Dominant personality traits revealed  
    - "Playlist Aura" (3-5 emoji descriptors)  
-   - A final sarcastic quote in big box with labbeling as vibefy
+   - A final sarcastic quote in big box with labbeling as vibeiFy
 
 Page2. **👑 Artist Dependencies**  
    - Top 5 "emotional support artists"  

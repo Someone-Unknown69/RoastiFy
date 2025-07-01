@@ -55,17 +55,6 @@ if (tracks.length === 0) {
     return data;
   }  
 
-  // getReport(tracks).then(aiResult => {
-  //   pages[0].innerHTML = aiResult.page1;
-  //   pages[1].innerHTML = aiResult.page2;
-  //   pages[2].innerHTML = aiResult.page3;
-  //   pages[3].innerHTML = aiResult.page4;
-  //   pages[4].innerHTML = aiResult.page5;
-  //   pages[5].innerHTML = aiResult.page6;
-  // }).catch(err => {
-  //   pages[0].textContent = "AI request failed: " + err.message;
-  // });  
-  
   getReport(tracks)
   .then(aiResult => {
     console.log(aiResult)
@@ -75,6 +64,7 @@ if (tracks.length === 0) {
     pages[3].innerHTML = aiResult.page4;
     pages[4].innerHTML = aiResult.page5;
     pages[5].innerHTML = aiResult.page6;
+    next_btn.style.display = "flex";
   })
   .catch(err => {
     console.error("AI ERROR:", err);
