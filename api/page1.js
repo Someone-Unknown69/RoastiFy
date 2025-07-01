@@ -1,4 +1,5 @@
 export default async function handler(req, res) {
+    console.log("API called")
   let body = req.body;
   if (req.method === "POST" && typeof req.body === "string") {
     try {
