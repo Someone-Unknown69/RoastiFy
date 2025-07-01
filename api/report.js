@@ -35,13 +35,13 @@ Generate a JSON object with 6 keys ("page1"..."page6"), each containing a concis
 
 ABSOLUTELY DO NOT include any explanations, markdown, code blocks, or extra text.
 Return ONLY a valid JSON object as your entire response.
-If you cannot generate the JSON, return: {"page1":"","page2":"","page3":"","page4":"","page5":"","page6":""}
 
 IMPORTANT: 
 - All graphs and visualizations (bar graphs, histograms, SVGs, etc.) must be fully complete, visually correct, and responsive. 
 - Do NOT generate placeholder, incomplete, or broken graphs. 
 - If you cannot generate a correct graph, omit it entirely and mention why.
 - Always use valid HTML and CSS for all visualizations.
+- Give a nice title to each page and don't clutter too much content in one place
 
  **TONE:**  
    - Professional sass ("therapist-certified roasts")  
