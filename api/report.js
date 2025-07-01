@@ -56,6 +56,7 @@ Generate a JSON object with 6 keys ("page1"..."page6"), each containing a concis
 **STRICT OUTPUT:**
 - All graphs/visuals must be complete and responsive. If not possible, omit and mention why.
 - Be concise, visually clear, and avoid filler.
+- Only return a valid JSON object with double-quoted keys and string values. Do not include markdown formatting, escape all quotes inside string values properly, and avoid characters that would break JSON.parse().
 
 do not include followup text like "Here is the html .... " basically generate only required element
 Do NOT include any notes, disclaimers, or explanations about the HTML, CSS, responsiveness, or Gen-Z slang in your output. Only return the actual HTML report content, nothing else.
