@@ -142,12 +142,15 @@ Page6. **🎯 Final Verdict**
   }
 
   const data = await response.json()
-  console.log("RAW AI API RESPONSE:", data); // <-- Add this line
+  console.log("RAW AI API RESPONSE:", data);
 
   let aiMessage = data.choices?.[0]?.message?.content || "Null";
   aiMessage = aiMessage.replace(/```json\n?|```/g, '').trim();
   console.log(aiMessage)
-  console.log(aiMessage.page1)
 
-  res.status(response.status).json(aiMessage);
+  let parsedMessage = JSON.parse(aiMessage);
+
+  console.log(parsedMessage.page1)
+
+  res.status(response.status).json(parsedMessage);
 }
