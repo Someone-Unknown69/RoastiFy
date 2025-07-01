@@ -46,7 +46,7 @@ if (tracks.length === 0) {
   pages[0].textContent = "No tracks found.";
 } else {
   async function getReport(tracks) {
-    const response = await fetch("/api/report", {
+    const response = await fetch("/api/page1", {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ tracks })
