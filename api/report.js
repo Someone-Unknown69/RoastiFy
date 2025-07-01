@@ -30,10 +30,11 @@ This Spotify playlist contains ${allTracks.length} songs.
 Here are the 5 most popular tracks:
 ${topTracks.slice(0, 5).map((t, i) => `${i + 1}. "${t.name}" by ${t.artist} (popularity: ${t.popularity})`).join('\n')}
 
-Analyze the playlist as a whole, focusing your roast and commentary on these tracks.  
-Generate a JSON object with 6 keys ("page1"..."page6"), each containing a concise, fully responsive HTML string for:
-ABSOLUTELY DO NOT include any explanations, markdown, code blocks, or extra text. 
-Return ONLY a valid JSON object as your entire response. 
+Analyze the playlist as a whole, focusing your roast and commentary on these tracks.
+Generate a JSON object with 6 keys ("page1"..."page6"), each containing a concise, fully responsive HTML fragment for a single <div class="report-section">...</div> container (not a full HTML page).
+
+ABSOLUTELY DO NOT include any explanations, markdown, code blocks, or extra text.
+Return ONLY a valid JSON object as your entire response.
 If you cannot generate the JSON, return: {"page1":"","page2":"","page3":"","page4":"","page5":"","page6":""}
 
 - page1: Vibe Psychoanalysis (mood summary, emotional damage score, dominant traits, playlist aura emojis)
@@ -43,26 +44,25 @@ If you cannot generate the JSON, return: {"page1":"","page2":"","page3":"","page
 - page5: Playlist DNA (genre breakdown, most overused lyric, time capsule rating)
 - page6: Final Verdict (damage score, therapist notes, IG bio one-liner)
 
-**Requirements:**  
+**Requirements:**
 - Output must be a pure JSON object, no markdown, code blocks, or explanations.
-- Each HTML string: dark theme, Spotify #1DB954 accents, 90% width, mobile-friendly, valid HTML/CSS.
+- Each value must be a single <div class="report-section">...</div> container, dark theme, Spotify #1DB954 accents, 90% width, mobile-friendly, valid HTML/CSS.
 - All graphs/visuals must be complete and responsive. If not possible, omit and mention why.
 - Be concise, visually clear, and avoid filler.
 
-**IMPORTANT:**  
+**IMPORTANT:**
 Return ONLY a valid JSON object as your entire response. Do NOT include any text, markdown, code blocks, or explanations—just the JSON.
 
-**Example output:**  
+**Example output:**
 {
-  "page1": "<html>...</html>",
-  "page2": "<html>...</html>",
-  "page3": "<html>...</html>",
-  "page4": "<html>...</html>",
-  "page5": "<html>...</html>",
-  "page6": "<html>...</html>"
+  "page1": "<div class=\"report-section\">...</div>",
+  "page2": "<div class=\"report-section\">...</div>",
+  "page3": "<div class=\"report-section\">...</div>",
+  "page4": "<div class=\"report-section\">...</div>",
+  "page5": "<div class=\"report-section\">...</div>",
+  "page6": "<div class=\"report-section\">...</div>"
 }
 `;
-
   const response = await fetch("https://openrouter.ai/api/v1/chat/completions", {
     method: "POST",
     headers: {
