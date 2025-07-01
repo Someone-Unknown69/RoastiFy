@@ -44,6 +44,12 @@ If you notice any patterns or interesting facts about the playlist based on thes
 Analyze the playlist as a whole, focusing your roast and commentary on these tracks.
 Generate a JSON object with 6 keys ("page1"..."page6"), each containing a concise, fully responsive HTML fragment for a single <div class="report-section">...</div> container (not a full HTML page).
 
+Return only a pure valid JSON object. Each key should map to an escaped HTML string (i.e., double quotes inside HTML must be written as \").
+❌ Do not include triple backticks.
+❌ Do not include Markdown formatting.
+✅ Output must be valid JSON that can be parsed by JSON.parse().
+✅ No comments, no explanation — just the JSON.
+
 **VISUAL & CONTENT UPGRADE:**
 - Make each <div class="report-section"> visually bold and engaging, not plain or minimal.
 - color scheme of cards shall be combination of #1DB954 and #1e1e1e , in case of graphs and pie charts use different shades of green or blue
@@ -57,7 +63,6 @@ Generate a JSON object with 6 keys ("page1"..."page6"), each containing a concis
 **STRICT OUTPUT:**
 - All graphs/visuals must be complete and responsive. If not possible, omit and mention why.
 - Be concise, visually clear, and avoid filler.
-- Only return a valid JSON object with double-quoted keys and string values. Do not include markdown formatting, escape all quotes inside string values properly, and avoid characters that would break JSON.parse().
 
 do not include followup text like "Here is the html .... " basically generate only required element
 Do NOT include any notes, disclaimers, or explanations about the HTML, CSS, responsiveness, or Gen-Z slang in your output. Only return the actual HTML report content, nothing else.
