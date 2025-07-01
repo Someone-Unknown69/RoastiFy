@@ -24,7 +24,6 @@ export default async function handler(req, res) {
   const topTracks = [...allTracks].sort((a, b) => b.popularity - a.popularity);
 
 const prompt = `
-
 You are an expert music analyst and web writer.
 
 This Spotify playlist contains ${allTracks.length} songs.
@@ -38,67 +37,21 @@ ABSOLUTELY DO NOT include any explanations, markdown, code blocks, or extra text
 Return ONLY a valid JSON object as your entire response.
 If you cannot generate the JSON, return: {"page1":"","page2":"","page3":"","page4":"","page5":"","page6":""}
 
-IMPORTANT: 
-- All graphs and visualizations (bar graphs, histograms, SVGs, etc.) must be fully complete, visually correct, and responsive. 
-- Do NOT generate placeholder, incomplete, or broken graphs. 
-- If you cannot generate a correct graph, omit it entirely and mention why.
-- Always use valid HTML and CSS for all visualizations.
+- page1: Vibe Psychoanalysis (mood summary, emotional damage score, dominant traits, playlist aura emojis)
+- page2: Artist Dependencies (top 3 artists, play count estimates, roast, responsive bar/histogram)
+- page3: Track Roast (top 10 tracks, roast, popularity graph of top 5, 10 least popular tracks)
+- page4: Mood Timeline (SVG/ASCII graph, Denial→Spiral→Regret, 3AM thoughts %)
+- page5: Playlist DNA (genre breakdown, most overused lyric, time capsule rating)
+- page6: Final Verdict (damage score, therapist notes, IG bio one-liner)
 
-2. **TONE:**  
-   - Professional sass ("therapist-certified roasts")  
-   - Gen-Z slang + meme references  
-   - Blunt but funny insights  
-3. **CONTENT DEPTH:**  
-   - Psychological profile based on song choices  
-   - Artist dependency analysis (top 10 artists)
-   - Playlist archetype classification  
+**Requirements:**
+- Output must be a pure JSON object, no markdown, code blocks, or explanations.
+- Each value must be a single <div class="report-section">...</div> container, dark theme, Spotify #1DB954 accents, 90% width, mobile-friendly, valid HTML/CSS.
+- All graphs/visuals must be complete and responsive. If not possible, omit and mention why.
+- Be concise, visually clear, and avoid filler.
 
-**TASK:**  
-Return a pure JSON object with 6 keys: "page1", "page2", "page3", "page4", "page5", "page6.  
-Each key's value must be a complete, concise, responsive HTML string for that section, following these topics:
-
-Page 1. **🧠 Vibe Psychoanalysis**  
-   - "This playlist is giving..." (mood summary)  
-   - Emotional damage assessment (0-100 scale)  
-   - Dominant personality traits revealed  
-   - "Playlist Aura" (3-5 emoji descriptors)  
-
-Page 2. **👑 Artist Dependencies**  
-   - Top 3 "emotional support artists"  
-   - Play count estimates (based on popularity)  
-   - Roast of each top 3 artist's influence on listener  
-   - Histogram visualization (CSS/HTML)  
-   - bar graph (CSS/HTML)
-   - Make the graphs correctly , take some time but don't present incomplete graphs
-
-Page 3. ** Track Roast**
-    - top 10 tracks of user
-    - roast em brutually
-    - popularity graph of top 5 songs
-    - also include top 10 least populatr tracks that user listens
-
-Page 4. **⏳ Mood Timeline**  
-   - SVG/ASCII graph showing emotional descent  
-   - Key phases: Denial → Spiral → Regret  
-   - "3AM thoughts" probability percentage  
-
-Page 5. **📊 Playlist DNA**  
-   - Genre breakdown with percentages  
-   - "Most Overused Lyric" award  
-   - Time capsule rating (how dated it feels)  
-
-Page 6. **🎯 Final Verdict**  
-   - Damage Score (0-100)  
-   - "Therapist Notes" (diagnoses like "Post-Breakup Musical Stockholm Syndrome")  
-   - One-liner for the victim's Instagram bio  
-
-
-
-**REQUIREMENTS:**  
-- Output must be a pure JSON object, no markdown, no code blocks, no explanations.
-- Each HTML string must be fully responsive, dark themed, Spotify #1DB954 accents, 90% width containers, mobile-friendly.
-- Use valid HTML/CSS only. If you can't generate a correct graph, omit it and mention why.
-- Keep each page concise and visually clear—avoid unnecessary filler or repeated info.
+**IMPORTANT:**
+Return ONLY a valid JSON object as your entire response. Do NOT include any text, markdown, code blocks, or explanations—just the JSON.
 
 **Example output:**
 {
