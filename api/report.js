@@ -37,12 +37,58 @@ ABSOLUTELY DO NOT include any explanations, markdown, code blocks, or extra text
 Return ONLY a valid JSON object as your entire response.
 If you cannot generate the JSON, return: {"page1":"","page2":"","page3":"","page4":"","page5":"","page6":""}
 
-- page1: Vibe Psychoanalysis (mood summary, emotional damage score, dominant traits, playlist aura emojis)
-- page2: Artist Dependencies (top 3 artists, play count estimates, roast, responsive bar/histogram)
-- page3: Track Roast (top 10 tracks, roast, popularity graph of top 5, 10 least popular tracks)
-- page4: Mood Timeline (SVG/ASCII graph, Denial→Spiral→Regret, 3AM thoughts %)
-- page5: Playlist DNA (genre breakdown, most overused lyric, time capsule rating)
-- page6: Final Verdict (damage score, therapist notes, IG bio one-liner)
+IMPORTANT: 
+- All graphs and visualizations (bar graphs, histograms, SVGs, etc.) must be fully complete, visually correct, and responsive. 
+- Do NOT generate placeholder, incomplete, or broken graphs. 
+- If you cannot generate a correct graph, omit it entirely and mention why.
+- Always use valid HTML and CSS for all visualizations.
+
+ **TONE:**  
+   - Professional sass ("therapist-certified roasts")  
+   - Gen-Z slang + meme references  
+   - Blunt but funny insights  
+ **CONTENT DEPTH:**  
+   - Psychological profile based on song choices  
+   - Artist dependency analysis (top 10 artists)
+   - Playlist archetype classification  
+
+
+Page 1. **🧠 Vibe Psychoanalysis**  
+   - "This playlist is giving..." (mood summary)  
+   - Emotional damage assessment (0-100 scale)  
+   - Dominant personality traits revealed  
+   - "Playlist Aura" (3-5 emoji descriptors)  
+
+Page 2. **👑 Artist Dependencies**  
+   - Top 3 "emotional support artists"  
+   - Play count estimates (based on popularity)  
+   - Roast of each top 3 artist's influence on listener  
+   - Histogram visualization (CSS/HTML)  
+   - bar graph (CSS/HTML)
+   - Make the graphs correctly , take some time but don't present incomplete graphs
+
+Page 3. ** Track Roast**
+    - top 10 tracks of user
+    - roast em brutually
+    - popularity graph of top 5 songs
+    - also include top 10 least populatr tracks that user listens
+
+Page 4. **⏳ Mood Timeline**  
+   - SVG/ASCII graph showing emotional descent  
+   - Key phases: Denial → Spiral → Regret  
+   - "3AM thoughts" probability percentage  
+
+Page 5. **📊 Playlist DNA**  
+   - Genre breakdown with percentages  
+   - "Most Overused Lyric" award  
+   - Time capsule rating (how dated it feels)  
+
+Page 6. **🎯 Final Verdict**  
+   - Damage Score (0-100)  
+   - "Therapist Notes" (diagnoses like "Post-Breakup Musical Stockholm Syndrome")  
+   - One-liner for the victim's Instagram bio  
+
+
 
 **Requirements:**
 - Output must be a pure JSON object, no markdown, code blocks, or explanations.
