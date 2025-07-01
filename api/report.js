@@ -36,13 +36,21 @@ Generate a JSON object with 6 keys ("page1"..."page6"), each containing a concis
 ABSOLUTELY DO NOT include any explanations, markdown, code blocks, or extra text.
 Return ONLY a valid JSON object as your entire response.
 
-IMPORTANT: 
-- All graphs and visualizations (bar graphs, histograms, SVGs, etc.) must be fully complete, visually correct, and responsive. 
-- Do NOT generate placeholder, incomplete, or broken graphs. 
-- If you cannot generate a correct graph, omit it entirely and mention why.
-- Always use valid HTML and CSS for all visualizations.
-- Give a nice title to each page and don't clutter too much content in one place
-- Make the output look bigger with boxing and random shit
+**VISUAL & CONTENT UPGRADE:**
+- Make each <div class="report-section"> visually bold and engaging, not plain or minimal.
+- Use creative CSS: gradients, cards, badges, icons, emojis, progress bars, SVGs, and shadow effects.
+- Add micro-details: playlist personality badges, fun facts, top lyric snippet, energy/vibe meters, roast badges, etc.
+- Use Spotify-style UI: rounded cards, neon #1DB954 highlights, playful microcopy, and modern layouts.
+- Each section should feel like a unique, interactive dashboard card, not a boring text block.
+- Use more color, spacing, and visual hierarchy for clarity and appeal.
+- Add more data-driven insights and playful Gen-Z roasts.
+
+**STRICT OUTPUT:**
+- Output must be a pure JSON object, no markdown, code blocks, or explanations.
+- Each value must be a single <div class="report-section">...</div> container, dark theme, Spotify #1DB954 accents, 90% width, mobile-friendly, valid HTML/CSS.
+- All graphs/visuals must be complete and responsive. If not possible, omit and mention why.
+- Be concise, visually clear, and avoid filler.
+- Return ONLY a valid JSON object as your entire response. Do NOT include any text, markdown, code blocks, or explanations—just the JSON.
 
  **TONE:**  
    - Professional sass ("therapist-certified roasts")  
