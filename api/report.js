@@ -148,13 +148,5 @@ Page6. **🎯 Final Verdict**
   aiMessage = aiMessage.replace(/```json\n?|```/g, '').trim();
   console.log(aiMessage)
 
-  let pagesHtml;
-  try {
-    pagesHtml = JSON.parse(aiMessage);
-    console.log(pagesHtml)
-  } catch (e) {
-    return res.status(500).json({ message: "AI did not return valid JSON.", raw: aiMessage });
-  }
-
-  res.status(response.status).json({ message: pagesHtml });
+  res.status(response.status).json({ message: aiMessage });
 }
