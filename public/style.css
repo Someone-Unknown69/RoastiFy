@@ -115,7 +115,7 @@ main {
   margin-top: 2rem;
   max-width: 800px;
   width: 90%;
-  background-color: var(--card-bg);
+  background-color: #1E1E1E;
   padding: 2rem;
   border-radius: 12px;
   box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);

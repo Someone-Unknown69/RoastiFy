@@ -3,61 +3,85 @@
 <head>
   <meta charset="UTF-8">
   <title>Playlist Report</title>
-  <style>
-    html, body {
-      overflow-x: hidden;
-      width: 100%;
-      height: 100%;
-    }
-    body {
-      background: #191414;
-      color: #fff;
-      font-family: 'Segoe UI', 'Arial', sans-serif;
-      margin: 0;
-      padding: 0;
-      min-height: 100vh;
-      box-sizing: border-box;
-    }
-    main {
-      max-width: 90vw;
-      margin: 40px auto;
-      background: #232323;
-      border-radius: 16px;
-      box-shadow: 0 4px 24px #000a;
-      padding: 32px 24px 24px 24px;
-    }
-    h1 {
-      color: #1db954;
-      letter-spacing: 1px;
-      margin-bottom: 24px;
-      text-align: center;
-      font-size: 2.2em;
-    }
-    #tracks-container {
-      margin-top: 16px;
-      font-size: 1.1em;
-      line-height: 1.7;
-    }
-    a, a:visited {
-      color: #1db954;
-      text-decoration: underline;
-    }
-    /* Optional: Style scrollbars for dark mode */
-    ::-webkit-scrollbar {
-      width: 8px;
-      background: #232323;
-    }
-    ::-webkit-scrollbar-thumb {
-      background: #1db954;
-      border-radius: 4px;
-    }
-  </style>
+  <link rel="stylesheet" href="dashboard.css">
 </head>
 <body>
   <main>
     <h1>Playlist Report</h1>
-    <div id="tracks-container">Loading...</div>
   </main>
+  
+  <div class="Output-container" style="display: flex;">
+<!--     
+    1. **Vibe Psychoanalysis**  
+    - "This playlist is giving..." (mood summary)  
+    - Emotional damage assessment (0-100 scale)  
+    - Dominant personality traits revealed  
+    - "Playlist Aura" (3-5 emoji descriptors) -->
+    
+    <div id="Loading">Loading...</div>
+  </div>
+
+
+  <div class="Output-container">
+
+    **Artist Dependencies**  
+   - Top 3 "emotional support artists"  
+   - Play count estimates (based on popularity)  
+   - Roast of each top 3 artist's influence on listener  
+   - Histogram visualization (CSS/HTML)  
+   - bar graph (CSS/HTML)
+   - Make the graphs correctly , take some time but don't present incomplete graphs
+
+  </div>
+
+
+  <div class="Output-container">
+
+    **Track Roast**
+    - top 10 tracks of user
+    - roast em brutually
+    - popularity graph of top 5 songs
+    - also include top 10 least populatr tracks that user listens
+
+  </div>
+
+
+  <div class="Output-container">
+
+   **Mood Timeline**  
+   - SVG/ASCII graph showing emotional descent  
+   - Key phases: Denial → Spiral → Regret  
+   - "3AM thoughts" probability percentage  
+
+  </div>
+
+
+  <div class="Output-container">
+
+   **Playlist DNA**  
+   - Genre breakdown with percentages  
+   - "Most Overused Lyric" award  
+   - Time capsule rating (how dated it feels)  
+
+  </div>
+  
+
+  <div class="Output-container">
+
+   **Final Verdict**  
+   - Damage Score (0-100)  
+   - "Therapist Notes" (diagnoses like "Post-Breakup Musical Stockholm Syndrome")  
+   - One-liner for the victim's Instagram bio 
+
+  </div>
+  
+  <div class="buttons-container">
+    <button id="prev" style="display: none;" oncontextmenu="return false;"">Previous</button>
+    <button id="next" style="margin-left: auto;" oncontextmenu="return false;">Next</button>
+ </div>
+  
+
+
   <script src="dashboard.js"></script>
 </body>
 </html>
