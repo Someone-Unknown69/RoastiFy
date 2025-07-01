@@ -23,7 +23,7 @@ export default async function handler(req, res) {
     // Sort by popularity and pick top 20
   const topTracks = [...allTracks].sort((a, b) => b.popularity - a.popularity);
 
-  const prompt = `
+const prompt = `
 You are an expert music analyst and web writer.
 
 This Spotify playlist contains ${allTracks.length} songs.
@@ -31,7 +31,7 @@ Here are the 5 most popular tracks:
 ${topTracks.slice(0, 5).map((t, i) => `${i + 1}. "${t.name}" by ${t.artist} (popularity: ${t.popularity})`).join('\n')}
 
 Analyze the playlist as a whole, focusing your roast and commentary on these tracks.  
-Generate a JSON object with 5 keys ("page1"..."page5"), each containing a concise, fully responsive HTML string for:
+Generate a JSON object with 6 keys ("page1"..."page6"), each containing a concise, fully responsive HTML string for:
 
 - page1: Vibe Psychoanalysis (mood summary, emotional damage score, dominant traits, playlist aura emojis)
 - page2: Artist Dependencies (top 3 artists, play count estimates, roast, responsive bar/histogram)
@@ -45,6 +45,9 @@ Generate a JSON object with 5 keys ("page1"..."page5"), each containing a concis
 - Each HTML string: dark theme, Spotify #1DB954 accents, 90% width, mobile-friendly, valid HTML/CSS.
 - All graphs/visuals must be complete and responsive. If not possible, omit and mention why.
 - Be concise, visually clear, and avoid filler.
+
+**IMPORTANT:**  
+Return ONLY a valid JSON object as your entire response. Do NOT include any text, markdown, code blocks, or explanations—just the JSON.
 
 **Example output:**  
 {
