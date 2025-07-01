@@ -147,6 +147,7 @@ Page6. **🎯 Final Verdict**
   let aiMessage = data.choices?.[0]?.message?.content || "Null";
   aiMessage = aiMessage.replace(/```json\n?|```/g, '').trim();
   console.log(aiMessage)
+  console.log(aiMessage.page1)
 
   res.status(response.status).json(aiMessage);
 }
