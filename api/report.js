@@ -85,7 +85,11 @@ Return ONLY a valid JSON object as your entire response. Do NOT include any text
   }
 
   const data = await response.json()
-  const aiMessage = response.choices[0].message.content || "Null";
+  console.log("RAW AI API RESPONSE:", data); // <-- Add this line
+
+  const aiMessage = data.choices?.[0]?.message?.content || "Null";
+  console.log("AI MESSAGE CONTENT:", aiMessage); // <-- Add this line
+
   aiMessage = aiMessage.replace(/```[a-z]*\n?/gi, '').replace(/```/g, '').trim();
 
   let pagesHtml;
