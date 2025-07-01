@@ -50,7 +50,7 @@ Generate a JSON object with 6 keys ("page1"..."page6"), each containing a concis
 - Add micro-details: playlist personality badges, fun facts, top lyric snippet, energy/vibe meters, roast badges, etc.
 - Use Spotify-style UI: rounded cards, neon #1DB954 highlights, playful microcopy, and modern layouts.
 - Each section should feel like a unique, interactive dashboard card, not a boring text block.
-- Use spotify colors, spacing, and visual hierarchy for clarity and appeal.
+- Use more color, spacing, and visual hierarchy for clarity and appeal.
 - Add more data-driven insights and playful Gen-Z roasts.
 
 **STRICT OUTPUT:**
@@ -155,18 +155,22 @@ Page6. **🎯 Final Verdict**
       });
   }
 
-const data = await response.json();
+const data = await response.json(); // ✅ this must come FIRST
 
+console.log("RAW AI API RESPONSE:", data);
 
 let aiMessage = data.choices?.[0]?.message?.content || '';
 let cleaned = aiMessage.replace(/```json\n?|```/g, '').trim();
+
+// Fix invalid escape sequences
 cleaned = cleaned.replace(/\\(?!["\\/bfnrtu])/g, '\\\\');
 
 try {
   const parsed = JSON.parse(cleaned);
+  console.log("✅ page1:", parsed.page1);
   res.status(200).json(parsed);
 } catch (e) {
-  console.error("JSON.parse failed:", e.message);
+  console.error("❌ JSON.parse failed:", e.message);
   res.status(500).json({ error: "Invalid JSON returned from AI." });
 }
 
