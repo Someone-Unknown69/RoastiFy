@@ -22,13 +22,15 @@ spotify-playlist-analyzer/
 ├── public/
 │   ├── index.html         # Landing page
 │   ├── dashboard.html     # Report page
+│   ├── dashboard.css      # Report page styles
 │   ├── style.css          # Main styles
 │   ├── script.js          # Handles playlist input and navigation
 │   ├── dashboard.js       # Fetches and renders AI report
 │   └── assets/            # Images, logo, etc.
 ├── api/
 │   ├── playlist.js        # Fetches playlist data from Spotify
-│   └── report.js          # Generates AI-powered report
+│   ├── auth.js            # Authorizes the token from spotify
+|   └── report.js          # Generates AI-powered report
 ├── README.md
 └── ... (other config files)
 ```
