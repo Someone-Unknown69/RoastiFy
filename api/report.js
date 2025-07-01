@@ -148,5 +148,5 @@ Page6. **🎯 Final Verdict**
   aiMessage = aiMessage.replace(/```json\n?|```/g, '').trim();
   console.log(aiMessage)
 
-  res.status(response.status).json({ message: aiMessage });
+  res.status(response.status).json(aiMessage);
 }

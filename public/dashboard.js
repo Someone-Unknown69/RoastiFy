@@ -56,12 +56,12 @@ if (tracks.length === 0) {
   }  
 
   getReport(tracks).then(aiResult => {
-    pages[0].innerHTML = aiResult.message.page1;
-    pages[1].innerHTML = aiResult.message.page2;
-    pages[2].innerHTML = aiResult.message.page3;
-    pages[3].innerHTML = aiResult.message.page4;
-    pages[4].innerHTML = aiResult.message.page5;
-    pages[5].innerHTML = aiResult.message.page6;
+    pages[0].innerHTML = aiResult.page1;
+    pages[1].innerHTML = aiResult.page2;
+    pages[2].innerHTML = aiResult.page3;
+    pages[3].innerHTML = aiResult.page4;
+    pages[4].innerHTML = aiResult.page5;
+    pages[5].innerHTML = aiResult.page6;
   }).catch(err => {
     pages[0].textContent = "AI request failed: " + err.message;
   });  
