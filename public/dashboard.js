@@ -21,12 +21,12 @@ function check_btn(curr_page) {
 
 function next_page(curr_page) {
   pages[curr_page].style.display = "none";
-  pages[curr_page + 1].style.display = "flex";
+  pages[curr_page + 1].style.display = "block";
   return curr_page + 1;
 }
 function prev_page(curr_page) {
   pages[curr_page].style.display = "none";
-  pages[curr_page - 1].style.display = "flex";
+  pages[curr_page - 1].style.display = "block";
   return curr_page - 1;
 }
 
