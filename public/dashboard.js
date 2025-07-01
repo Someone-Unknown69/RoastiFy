@@ -56,7 +56,7 @@ if (tracks.length === 0) {
   }  
 
   getReport(tracks).then(aiResult => {
-    const pagesHtml = JSON.parse(aiResult.message)
+    const pagesHtml = aiResult.message
     pages[0].innerHTML = pagesHtml.page1;
     pages[1].innerHTML = pagesHtml.page2;
     pages[2].innerHTML = pagesHtml.page3;
