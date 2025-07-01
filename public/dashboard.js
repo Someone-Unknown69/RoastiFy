@@ -68,6 +68,7 @@ if (tracks.length === 0) {
   
   getReport(tracks)
   .then(aiResult => {
+    console.log(aiResult)
     pages[0].innerHTML = aiResult.page1;
     pages[1].innerHTML = aiResult.page2;
     pages[2].innerHTML = aiResult.page3;

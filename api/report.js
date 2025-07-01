@@ -50,7 +50,7 @@ Generate a JSON object with 6 keys ("page1"..."page6"), each containing a concis
 - Add micro-details: playlist personality badges, fun facts, top lyric snippet, energy/vibe meters, roast badges, etc.
 - Use Spotify-style UI: rounded cards, neon #1DB954 highlights, playful microcopy, and modern layouts.
 - Each section should feel like a unique, interactive dashboard card, not a boring text block.
-- Use more color, spacing, and visual hierarchy for clarity and appeal.
+- Use more spacing, and visual hierarchy for clarity and appeal.
 - Add more data-driven insights and playful Gen-Z roasts.
 
 **STRICT OUTPUT:**
