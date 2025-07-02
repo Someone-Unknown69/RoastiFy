@@ -48,7 +48,15 @@ Do NOT return any markdown, code blocks, explanations, or extra text—just the 
 
 **VISUAL & CONTENT UPGRADE:**
 - Make each <div class="report-section"> visually bold and engaging, not plain or minimal.
-- color scheme of cards shall be combination of #1DB954 and #1e1e1e , in case of graphs and pie charts use different shades of green or blue
+- STRICTLY use only Spotify's official dark theme colors:
+    - Primary: #1DB954 (Spotify Green)
+    - Background: #191414 (Spotify Black)
+    - Card/Section background: #1e1e1e
+    - Text: #FFFFFF or #B3B3B3 for secondary
+    - Accent: #535353, #282828, #404040 for subtle backgrounds or borders
+- Do NOT use any other colors (no reds, oranges, yellows, pinks, purples, etc).
+- All charts, graphs, and UI elements must use only these Spotify colors and their tints/shades.
+- The entire report must look like a native Spotify dashboard in dark mode.
 - Use creative CSS: gradients, cards, badges, icons, emojis, progress bars, SVGs, and shadow effects.
 - Add micro-details: playlist personality badges, fun facts, top lyric snippet, energy/vibe meters, roast badges, etc.
 - Use Spotify-style UI: rounded cards, neon #1DB954 highlights, playful microcopy, and modern layouts.
