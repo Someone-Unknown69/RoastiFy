@@ -71,7 +71,7 @@ if (tracks.length === 0) {
     return_btn.style.display = "flex";
     
     function renderCharts() {
-      // Find all chart data scripts
+
       document.querySelectorAll('script[type="application/json"][data-chart-for]').forEach(script => {
         try {
           const chartId = script.getAttribute('data-chart-for');
@@ -85,8 +85,6 @@ if (tracks.length === 0) {
         }
       });
     }
-    
-    output_cont.innerHTML = Object.values(aiResult).join('');
     renderCharts();
   })
   .catch(err => {
