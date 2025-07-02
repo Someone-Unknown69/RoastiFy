@@ -64,6 +64,8 @@ if (tracks.length === 0) {
   .then(aiResult => {
     console.log(aiResult)
     output_cont.innerHTML = Object.values(aiResult).join('')
+    window.pages = document.querySelectorAll('.report-section');
+    window.curr_page = 0;
     pages[0].style.display = "block"
     next_btn.style.display = "flex";
     return_btn.style.display = "flex";
