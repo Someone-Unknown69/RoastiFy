@@ -42,7 +42,9 @@ If you notice any patterns or interesting facts about the playlist based on thes
 
 **🎨 REPORT REQUIREMENTS:**  
 Analyze the playlist as a whole, focusing your roast and commentary on these tracks.
-Generate a single HTML string containing 6 <div class="report-section" data-page="1">...</div> containers, one for each report section. Each div should have a unique data-page attribute (1-6). Do NOT return any markdown, code blocks, or explanations—just the HTML string.
+Generate a single HTML string containing ONLY 6 <div class="report-section" data-page="1">...</div> containers, one for each report section. Each div must have a unique data-page attribute (1-6). 
+DO NOT include <html>, <head>, <body>, <style>, <script>, or any other tags outside the 6 <div class="report-section" ...> blocks.
+Do NOT return any markdown, code blocks, explanations, or extra text—just the 6 <div class
 
 **VISUAL & CONTENT UPGRADE:**
 - Make each <div class="report-section"> visually bold and engaging, not plain or minimal.
