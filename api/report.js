@@ -1,4 +1,4 @@
-import { GoogleGenAI } from "@google/genai";
+const { GoogleGenAI } = require("@google/genai");
 
 const geminiApiKey = process.env.GEMINI_API_KEY;
 const openrouterApiKey = process.env.OPENROUTER_API_KEY;
