@@ -1,4 +1,3 @@
-const pages = document.querySelectorAll('.report-section')
 const output_cont = document.querySelector('.Output-container')
 const next_btn = document.getElementById("next");
 const prev_btn = document.getElementById("prev");
@@ -22,13 +21,13 @@ function check_btn(curr_page) {
 }
 
 function next_page(curr_page) {
-  pages[curr_page].style.display = "none";
-  pages[curr_page + 1].style.display = "block";
+  window.pages[curr_page].style.display = "none";
+  window.pages[curr_page + 1].style.display = "block";
   return curr_page + 1;
 }
 function prev_page(curr_page) {
-  pages[curr_page].style.display = "none";
-  pages[curr_page - 1].style.display = "block";
+  window.pages[curr_page].style.display = "none";
+  window.pages[curr_page - 1].style.display = "block";
   return curr_page - 1;
 }
 
@@ -48,7 +47,8 @@ return_btn.addEventListener("click" ,()=>{
 
 
 if (tracks.length === 0) {
-  pages[0].textContent = "No tracks found.";
+  window.pages = document.querySelectorAll('.report-section');
+  if(window.pages[0]) window.pages[0].textContent = "No tracks found.";
 } else {
   async function getReport(tracks) {
     const response = await fetch("/api/report", {
@@ -66,13 +66,14 @@ if (tracks.length === 0) {
     output_cont.innerHTML = Object.values(aiResult).join('')
     window.pages = document.querySelectorAll('.report-section');
     window.curr_page = 0;
-    pages[0].style.display = "block"
+    if(window.pages[0]) window.pages[0].style.display = "block";
     next_btn.style.display = "flex";
     return_btn.style.display = "flex";
   })
   .catch(err => {
     console.error("AI ERROR:", err);
-    pages[0].textContent = "AI request failed: " + err.message;
+    window.pages = document.querySelectorAll('.report-section');
+    if(window.pages[0]) window.pages[0].textContent = "AI request failed: " + err.message;
   });
 
 }  
