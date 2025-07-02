@@ -1,3 +1,10 @@
+import { GoogleGenAI } from "@google/genai";
+
+const geminiApiKey = process.env.GEMINI_API_KEY;
+const openrouterApiKey = process.env.OPENROUTER_API_KEY;
+
+const ai = geminiApiKey ? new GoogleGenAI({ apiKey: geminiApiKey }) : null;
+
 export default async function handler(req, res) {
   let body = req.body;
   if (req.method === "POST" && typeof req.body === "string") {
@@ -8,10 +15,9 @@ export default async function handler(req, res) {
     }
   }
   const { tracks } = body;
-  const apiKey = process.env.OPENROUTER_API_KEY;
 
-  if (!apiKey) {
-    return res.status(500).json({ error: "No OpenRouter API key set" });
+  if (!geminiApiKey && !openrouterApiKey) {
+    return res.status(500).json({ error: "No AI API key set" });
   }
 
   const allTracks = tracks.map((t) => ({
@@ -20,7 +26,6 @@ export default async function handler(req, res) {
     popularity: t.popularity,
   }));
 
-  // Sort by popularity and pick top 20
   const topTracks = [...allTracks].sort((a, b) => b.popularity - a.popularity);
 
   const prompt = `
@@ -133,40 +138,34 @@ Page6. **🎯 Final Verdict**
 }
 STOP. Output ONLY a valid JSON object as your entire response. Do NOT include any explanations, markdown, code blocks, or extra text. If you include anything except a valid JSON object, your answer will be rejected.
 `;
-  const response = await getAIResponse(prompt, apiKey);
-  res.status(200).json(response);
+
+  try {
+    let parsed;
+    if (geminiApiKey) {
+      parsed = await getGeminiResponse(prompt, ai);
+    } else {
+      parsed = await getOpenRouterResponse(prompt, openrouterApiKey);
+    }
+    res.status(200).json(parsed);
+  } catch (e) {
+    res.status(500).json({ error: e.message });
+  }
 }
 
-async function getAIResponse(prompt, apiKey, attempt = 1) {
-  const response = await fetch(
-    "https://openrouter.ai/api/v1/chat/completions",
-    {
-      method: "POST",
-      headers: {
-        Authorization: `Bearer ${apiKey}`,
-        "Content-Type": "application/json",
-      },
-      body: JSON.stringify({
-        model: "deepseek/deepseek-r1-0528-qwen3-8b:free",
-        messages: [
-          {
-            role: "user",
-            content: prompt,
-          },
-        ],
-      }),
-    }
-  );
-  if (response.status === 429) {
-    throw new Error("Rate limit exceeded. Please wait and try again later.");
-  }
-  const data = await response.json();
-  let aiMessage = data.choices?.[0]?.message?.content || '';
-  let cleaned = aiMessage.replace(/```json\n?|```/g, '').trim();
-  cleaned = cleaned.replace(/\\(?!["\\/bfnrtu])/g, '\\\\');
+async function getGeminiResponse(prompt, ai, attempt = 1) {
   try {
+    const response = await ai.models.generateContent({
+      model: "gemini-2.5-flash",
+      contents: [{ role: "user", parts: [{ text: prompt }] }],
+    });
+    // Gemini's SDK response parsing
+    let text =
+      response.text ||
+      response.candidates?.[0]?.content?.parts?.[0]?.text ||
+      "";
+    let cleaned = text.replace(/```json\n?|```/g, "").trim();
+    cleaned = cleaned.replace(/\\(?!["\\/bfnrtu])/g, "\\\\");
     const parsed = JSON.parse(cleaned);
-    // Check for undefined or missing keys
     if (
       !parsed ||
       !parsed.page1 ||
@@ -177,18 +176,73 @@ async function getAIResponse(prompt, apiKey, attempt = 1) {
       !parsed.page6
     ) {
       if (attempt < 2) {
-        console.warn("AI response incomplete, retrying...");
-        return await getAIResponse(prompt, apiKey, attempt + 1);
+        console.warn("Gemini response incomplete, retrying...");
+        return await getGeminiResponse(prompt, ai, attempt + 1);
       } else {
-        throw new Error("The Developer used a cheap AI model, refresh the page");
+        throw new Error("Gemini returned incomplete response after retry.");
       }
     }
     return parsed;
   } catch (e) {
     if (attempt < 2) {
-      console.warn("JSON.parse failed, retrying...");
-      return await getAIResponse(prompt, apiKey, attempt + 1);
+      console.warn("Gemini JSON.parse failed, retrying...");
+      return await getGeminiResponse(prompt, ai, attempt + 1);
     }
-    throw new Error("Invalid JSON returned from AI after retry.");
+    throw new Error("Invalid JSON returned from Gemini after retry.");
   }
 }
+
+// async function getOpenRouterResponse(prompt, apiKey, attempt = 1) {
+//   const response = await fetch(
+//     "https://openrouter.ai/api/v1/chat/completions",
+//     {
+//       method: "POST",
+//       headers: {
+//         Authorization: `Bearer ${apiKey}`,
+//         "Content-Type": "application/json",
+//       },
+//       body: JSON.stringify({
+//         model: "deepseek/deepseek-r1-0528-qwen3-8b:free",
+//         messages: [
+//           {
+//             role: "user",
+//             content: prompt,
+//           },
+//         ],
+//       }),
+//     }
+//   );
+//   if (response.status === 429) {
+//     throw new Error("Rate limit exceeded. Please wait and try again later.");
+//   }
+//   const data = await response.json();
+//   let aiMessage = data.choices?.[0]?.message?.content || "";
+//   let cleaned = aiMessage.replace(/```json\n?|```/g, "").trim();
+//   cleaned = cleaned.replace(/\\(?!["\\/bfnrtu])/g, "\\\\");
+//   try {
+//     const parsed = JSON.parse(cleaned);
+//     if (
+//       !parsed ||
+//       !parsed.page1 ||
+//       !parsed.page2 ||
+//       !parsed.page3 ||
+//       !parsed.page4 ||
+//       !parsed.page5 ||
+//       !parsed.page6
+//     ) {
+//       if (attempt < 2) {
+//         console.warn("OpenRouter response incomplete, retrying...");
+//         return await getOpenRouterResponse(prompt, apiKey, attempt + 1);
+//       } else {
+//         throw new Error("OpenRouter returned incomplete response after retry.");
+//       }
+//     }
+//     return parsed;
+//   } catch (e) {
+//     if (attempt < 2) {
+//       console.warn("OpenRouter JSON.parse failed, retrying...");
+//       return await getOpenRouterResponse(prompt, apiKey, attempt + 1);
+//     }
+//     throw new Error("Invalid JSON returned from OpenRouter after retry.");
+//   }
+// }
