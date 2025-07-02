@@ -1,10 +1,3 @@
-const { GoogleGenAI } = require("@google/genai");
-
-const geminiApiKey = process.env.GEMINI_API_KEY;
-const openrouterApiKey = process.env.OPENROUTER_API_KEY;
-
-const ai = geminiApiKey ? new GoogleGenAI({ apiKey: geminiApiKey }) : null;
-
 export default async function handler(req, res) {
   let body = req.body;
   if (req.method === "POST" && typeof req.body === "string") {
@@ -15,8 +8,9 @@ export default async function handler(req, res) {
     }
   }
   const { tracks } = body;
+  const openrouterApiKey = process.env.OPENROUTER_API_KEY;
 
-  if (!geminiApiKey && !openrouterApiKey) {
+  if (!openrouterApiKey) {
     return res.status(500).json({ error: "No AI API key set" });
   }
 
@@ -152,19 +146,34 @@ STOP. Output ONLY a valid JSON object as your entire response. Do NOT include an
   }
 }
 
-async function getGeminiResponse(prompt, ai, attempt = 1) {
+async function getOpenRouterResponse(prompt, apiKey, attempt = 1) {
+  const response = await fetch(
+    "https://openrouter.ai/api/v1/chat/completions",
+    {
+      method: "POST",
+      headers: {
+        Authorization: `Bearer ${apiKey}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify({
+        model: "deepseek/deepseek-r1-0528-qwen3-8b:free",
+        messages: [
+          {
+            role: "user",
+            content: prompt,
+          },
+        ],
+      }),
+    }
+  );
+  if (response.status === 429) {
+    throw new Error("Rate limit exceeded. Please wait and try again later.");
+  }
+  const data = await response.json();
+  let aiMessage = data.choices?.[0]?.message?.content || "";
+  let cleaned = aiMessage.replace(/```json\n?|```/g, "").trim();
+  cleaned = cleaned.replace(/\\(?!["\\/bfnrtu])/g, "\\\\");
   try {
-    const response = await ai.models.generateContent({
-      model: "gemini-2.5-flash",
-      contents: [{ role: "user", parts: [{ text: prompt }] }],
-    });
-    // Gemini's SDK response parsing
-    let text =
-      response.text ||
-      response.candidates?.[0]?.content?.parts?.[0]?.text ||
-      "";
-    let cleaned = text.replace(/```json\n?|```/g, "").trim();
-    cleaned = cleaned.replace(/\\(?!["\\/bfnrtu])/g, "\\\\");
     const parsed = JSON.parse(cleaned);
     if (
       !parsed ||
@@ -176,73 +185,18 @@ async function getGeminiResponse(prompt, ai, attempt = 1) {
       !parsed.page6
     ) {
       if (attempt < 2) {
-        console.warn("Gemini response incomplete, retrying...");
-        return await getGeminiResponse(prompt, ai, attempt + 1);
+        console.warn("OpenRouter response incomplete, retrying...");
+        return await getOpenRouterResponse(prompt, apiKey, attempt + 1);
       } else {
-        throw new Error("Gemini returned incomplete response after retry.");
+        throw new Error("OpenRouter returned incomplete response after retry.");
       }
     }
     return parsed;
   } catch (e) {
     if (attempt < 2) {
-      console.warn("Gemini JSON.parse failed, retrying...");
-      return await getGeminiResponse(prompt, ai, attempt + 1);
+      console.warn("OpenRouter JSON.parse failed, retrying...");
+      return await getOpenRouterResponse(prompt, apiKey, attempt + 1);
     }
-    throw new Error("Invalid JSON returned from Gemini after retry.");
+    throw new Error("Invalid JSON returned from OpenRouter after retry.");
   }
 }
-
-// async function getOpenRouterResponse(prompt, apiKey, attempt = 1) {
-//   const response = await fetch(
-//     "https://openrouter.ai/api/v1/chat/completions",
-//     {
-//       method: "POST",
-//       headers: {
-//         Authorization: `Bearer ${apiKey}`,
-//         "Content-Type": "application/json",
-//       },
-//       body: JSON.stringify({
-//         model: "deepseek/deepseek-r1-0528-qwen3-8b:free",
-//         messages: [
-//           {
-//             role: "user",
-//             content: prompt,
-//           },
-//         ],
-//       }),
-//     }
-//   );
-//   if (response.status === 429) {
-//     throw new Error("Rate limit exceeded. Please wait and try again later.");
-//   }
-//   const data = await response.json();
-//   let aiMessage = data.choices?.[0]?.message?.content || "";
-//   let cleaned = aiMessage.replace(/```json\n?|```/g, "").trim();
-//   cleaned = cleaned.replace(/\\(?!["\\/bfnrtu])/g, "\\\\");
-//   try {
-//     const parsed = JSON.parse(cleaned);
-//     if (
-//       !parsed ||
-//       !parsed.page1 ||
-//       !parsed.page2 ||
-//       !parsed.page3 ||
-//       !parsed.page4 ||
-//       !parsed.page5 ||
-//       !parsed.page6
-//     ) {
-//       if (attempt < 2) {
-//         console.warn("OpenRouter response incomplete, retrying...");
-//         return await getOpenRouterResponse(prompt, apiKey, attempt + 1);
-//       } else {
-//         throw new Error("OpenRouter returned incomplete response after retry.");
-//       }
-//     }
-//     return parsed;
-//   } catch (e) {
-//     if (attempt < 2) {
-//       console.warn("OpenRouter JSON.parse failed, retrying...");
-//       return await getOpenRouterResponse(prompt, apiKey, attempt + 1);
-//     }
-//     throw new Error("Invalid JSON returned from OpenRouter after retry.");
-//   }
-// }
