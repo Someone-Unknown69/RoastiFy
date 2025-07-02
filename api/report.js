@@ -158,8 +158,8 @@ const response = await fetch(
   cleaned = cleaned.replace(/\\(?!["\\/bfnrtu])/g, '\\\\');
   console.log("cleaned: " + cleaned)
   
-  const sections = cleaned.match(/<div class="report-section"[\s\S]*?<\/div>/g) || [];
+  const sections = cleaned.match(/<div class="report-section"[\s\S]*<\/div>/g) || [];
   console.log("sections: " + sections)
-  
+
   res.status(200).json({ sections })
 }
