@@ -62,14 +62,16 @@ if (tracks.length === 0) {
   getReport(tracks)
   .then(aiResult => {
     console.log(aiResult)
-    pages[0].innerHTML = aiResult.page1;
-    pages[1].innerHTML = aiResult.page2;
-    pages[2].innerHTML = aiResult.page3;
-    pages[3].innerHTML = aiResult.page4;
-    pages[4].innerHTML = aiResult.page5;
-    pages[5].innerHTML = aiResult.page6;
-    next_btn.style.display = "flex";
-    return_btn.style.display = "flex";
+    
+    if(aiResult.sections && aiResult.sections.length === 6) {
+      for(let i = 0;i < 6;i++){
+        pages[i].innerHTML = aiResult.sections[i];
+      }
+      next_btn.style.display = "flex";
+      return_btn.style.display = "flex";
+    } else {
+      pages[0].textContent = "AI response is incomplete or invalid, kindly reload"
+    }
   })
   .catch(err => {
     console.error("AI ERROR:", err);

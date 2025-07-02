@@ -8,10 +8,10 @@ export default async function handler(req, res) {
     }
   }
   const { tracks } = body;
-  const openrouterApiKey = process.env.OPENROUTER_API_KEY;
+  const apiKey = process.env.OPENROUTER_API_KEY;
 
-  if (!openrouterApiKey) {
-    return res.status(500).json({ error: "No AI API key set" });
+  if (!apiKey) {
+    return res.status(500).json({ error: "No OpenRouter API key set" });
   }
 
   const allTracks = tracks.map((t) => ({
@@ -20,6 +20,7 @@ export default async function handler(req, res) {
     popularity: t.popularity,
   }));
 
+  // Sort by popularity and pick top 20
   const topTracks = [...allTracks].sort((a, b) => b.popularity - a.popularity);
 
   const prompt = `
@@ -41,13 +42,7 @@ If you notice any patterns or interesting facts about the playlist based on thes
 
 **🎨 REPORT REQUIREMENTS:**  
 Analyze the playlist as a whole, focusing your roast and commentary on these tracks.
-Generate a JSON object with 6 keys ("page1"..."page6"), each containing a concise, fully responsive HTML fragment for a single <div class="report-section">...</div> container (not a full HTML page).
-
-Return only a pure valid JSON object. Each key should map to an escaped HTML string (i.e., double quotes inside HTML must be written as \").
-❌ Do not include triple backticks.
-❌ Do not include Markdown formatting.
-✅ Output must be valid JSON that can be parsed by JSON.parse().
-✅ No comments, no explanation — just the JSON.
+Generate a single HTML string containing 6 <div class="report-section" data-page="1">...</div> containers, one for each report section. Each div should have a unique data-page attribute (1-6). Do NOT return any markdown, code blocks, or explanations—just the HTML string.
 
 **VISUAL & CONTENT UPGRADE:**
 - Make each <div class="report-section"> visually bold and engaging, not plain or minimal.
@@ -121,33 +116,20 @@ Page6. **🎯 Final Verdict**
 - All graphs/visuals must be complete and responsive. If not possible, omit and mention why.
 - Be concise, visually clear, and avoid filler.
 
+Generate a single HTML string containing 6 <div class="report-section" data-page="1">...</div> containers, one for each report section. Each div must have a unique data-page attribute (1-6). Do NOT return any markdown, code blocks, or explanations—just the HTML string.
+
 **Example output:**
-{
-  "page1": "<div class=\"report-section\">...</div>",
-  "page2": "<div class=\"report-section\">...</div>",
-  "page3": "<div class=\"report-section\">...</div>",
-  "page4": "<div class=\"report-section\">...</div>",
-  "page5": "<div class=\"report-section\">...</div>",
-  "page6": "<div class=\"report-section\">...</div>"
-}
-STOP. Output ONLY a valid JSON object as your entire response. Do NOT include any explanations, markdown, code blocks, or extra text. If you include anything except a valid JSON object, your answer will be rejected.
+<div class="report-section" data-page="1">...</div>
+<div class="report-section" data-page="2">...</div>
+<div class="report-section" data-page="3">...</div>
+<div class="report-section" data-page="4">...</div>
+<div class="report-section" data-page="5">...</div>
+<div class="report-section" data-page="6">...</div>
+
+STOP. Output ONLY the HTML string as your entire response. Do NOT include any explanations, markdown, code blocks, or extra text. If you include anything except the HTML string, your answer will be rejected.
 `;
 
-  try {
-    let parsed;
-    if (geminiApiKey) {
-      parsed = await getGeminiResponse(prompt, ai);
-    } else {
-      parsed = await getOpenRouterResponse(prompt, openrouterApiKey);
-    }
-    res.status(200).json(parsed);
-  } catch (e) {
-    res.status(500).json({ error: e.message });
-  }
-}
-
-async function getOpenRouterResponse(prompt, apiKey, attempt = 1) {
-  const response = await fetch(
+const response = await fetch(
     "https://openrouter.ai/api/v1/chat/completions",
     {
       method: "POST",
@@ -170,33 +152,15 @@ async function getOpenRouterResponse(prompt, apiKey, attempt = 1) {
     throw new Error("Rate limit exceeded. Please wait and try again later.");
   }
   const data = await response.json();
-  let aiMessage = data.choices?.[0]?.message?.content || "";
-  let cleaned = aiMessage.replace(/```json\n?|```/g, "").trim();
-  cleaned = cleaned.replace(/\\(?!["\\/bfnrtu])/g, "\\\\");
-  try {
-    const parsed = JSON.parse(cleaned);
-    if (
-      !parsed ||
-      !parsed.page1 ||
-      !parsed.page2 ||
-      !parsed.page3 ||
-      !parsed.page4 ||
-      !parsed.page5 ||
-      !parsed.page6
-    ) {
-      if (attempt < 2) {
-        console.warn("OpenRouter response incomplete, retrying...");
-        return await getOpenRouterResponse(prompt, apiKey, attempt + 1);
-      } else {
-        throw new Error("OpenRouter returned incomplete response after retry.");
-      }
-    }
-    return parsed;
-  } catch (e) {
-    if (attempt < 2) {
-      console.warn("OpenRouter JSON.parse failed, retrying...");
-      return await getOpenRouterResponse(prompt, apiKey, attempt + 1);
-    }
-    throw new Error("Invalid JSON returned from OpenRouter after retry.");
-  }
+  let aiMessage = data.choices?.[0]?.message?.content || '';
+  console.log("AI Message: " + aiMessage)
+  let cleaned = aiMessage.replace(/```json\n?|```/g, '').trim();
+  cleaned = cleaned.replace(/\\(?!["\\/bfnrtu])/g, '\\\\');
+  console.log("cleaned: " + cleaned)
+  
+  const parser = new DOMParser();
+  const doc = parser.parseFromString(cleaned, "text/html");
+  const sections = Array.from(doc.querySelectorAll('.report-section'));  
+  console.log("sections: " + sections)
+  res.status(200).json({ sections })
 }
