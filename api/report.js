@@ -158,9 +158,8 @@ const response = await fetch(
   cleaned = cleaned.replace(/\\(?!["\\/bfnrtu])/g, '\\\\');
   console.log("cleaned: " + cleaned)
   
-  const parser = new DOMParser();
-  const doc = parser.parseFromString(cleaned, "text/html");
-  const sections = Array.from(doc.querySelectorAll('.report-section'));  
+  const sections = cleaned.match(/<div class="report-section"[\s\S]*?<\/div>/g) || [];
   console.log("sections: " + sections)
+  
   res.status(200).json({ sections })
 }
