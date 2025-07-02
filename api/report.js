@@ -65,8 +65,24 @@ Do NOT return any markdown, code blocks, explanations, or extra text—just the 
 - Add more data-driven insights and playful Gen-Z roasts.
 
 **STRICT OUTPUT:**
-- All graphs/visuals must be complete and responsive. If not possible, omit and mention why.
 - Be concise, visually clear, and avoid filler.
+- For any chart, graph, or pie chart, output a <canvas> element with a unique id (like <canvas id="top5Chart"></canvas>) as a placeholder.
+- Immediately after the canvas, output a <script type="application/json" data-chart-for="top5Chart"> containing a JSON object with the chart data and config (labels, values, etc). Example:
+  <canvas id="top5Chart"></canvas>
+  <script type="application/json" data-chart-for="top5Chart">
+    {
+      "type": "pie",
+      "data": {
+        "labels": ["A", "B", "C"],
+        "datasets": [{
+          "data": [10, 20, 30],
+          "backgroundColor": ["#1DB954", "#282828", "#535353"]
+        }]
+      }
+    }
+  </script>
+- Do NOT include any <script> tags with JavaScript code, only JSON data as shown above.
+- Do NOT use any colors except the Spotify palette already specified.
 
 do not include followup text like "Here is the html .... " basically generate only required element
 Do NOT include any notes, disclaimers, or explanations about the HTML, CSS, responsiveness, or Gen-Z slang in your output. Only return the actual HTML report content, nothing else.

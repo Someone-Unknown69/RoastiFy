@@ -77,3 +77,22 @@ if (tracks.length === 0) {
   });
 
 }  
+
+function renderCharts() {
+  // Find all chart data scripts
+  document.querySelectorAll('script[type="application/json"][data-chart-for]').forEach(script => {
+    try {
+      const chartId = script.getAttribute('data-chart-for');
+      const chartData = JSON.parse(script.textContent);
+      const canvas = document.getElementById(chartId);
+      if (canvas && chartData) {
+        new Chart(canvas.getContext('2d'), chartData);
+      }
+    } catch (e) {
+      console.error("Chart rendering error:", e);
+    }
+  });
+}
+
+output_cont.innerHTML = Object.values(aiResult).join('');
+renderCharts();
