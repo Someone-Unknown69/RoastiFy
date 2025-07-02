@@ -80,7 +80,9 @@ button:hover {
   color: black;
 }
 
-.Output-container {
+
+
+.report-section {
   display: none;
   flex-direction: column;
   width: 90vw;

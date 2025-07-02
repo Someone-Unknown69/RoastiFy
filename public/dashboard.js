@@ -1,4 +1,5 @@
-const pages = document.querySelectorAll('.Output-container')
+const pages = document.querySelectorAll('.report-section')
+const output_cont = document.querySelector('.Output-container')
 const next_btn = document.getElementById("next");
 const prev_btn = document.getElementById("prev");
 const return_btn = document.getElementById("return");
@@ -62,16 +63,9 @@ if (tracks.length === 0) {
   getReport(tracks)
   .then(aiResult => {
     console.log(aiResult)
-    
-    if(aiResult.sections && aiResult.sections.length === 6) {
-      for(let i = 0;i < 6;i++){
-        pages[i].innerHTML = aiResult.sections[i];
-      }
-      next_btn.style.display = "flex";
-      return_btn.style.display = "flex";
-    } else {
-      pages[0].textContent = "AI response is incomplete or invalid, kindly reload"
-    }
+    output_cont.innerHTML = Object.values(aiResult).join('')
+    next_btn.style.display = "flex";
+    return_btn.style.display = "flex";
   })
   .catch(err => {
     console.error("AI ERROR:", err);
